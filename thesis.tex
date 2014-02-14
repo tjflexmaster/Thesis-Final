@@ -149,7 +149,7 @@
 % Because I use these things in more than one place, I created new commands for
 % them.  I did not use \providecommand because I absolutely want LaTeX to error
 % out if these already exist.
-\newcommand{\Title}{Measuring workload in human machine systems through modeling}
+\newcommand{\Title}{Modeling Human Workload in Unmanned Aerial Systems}
 \newcommand{\Author}{TJ Gledhill}
 \newcommand{\GraduationMonth}{April}
 \newcommand{\GraduationYear}{2014}
@@ -187,21 +187,26 @@
 \yearcopyrighted{\GraduationYear}
 
 \documentabstract{%
-This document is an example of how to use the byumsphd {\LaTeX} class file.  The class creates Ph.D. and Master's documents equally well, producing all appropriate preamble content and adhering precisely to the minimum formatting requirements.
+Unmanned aerial systems (UASs) often require multiple human operators fulfilling diverse roles for safe correct operation~\cite{GoodrichMorse2008,MurphyStoverPrattGriffin2006,Cummings2007}. Although some dispute the utility of minimizing the number of humans needed to administer a UAS~\cite{MurphyBurke2010}, minimization remains a long-standing objective for many designers.  Reliably designing the human interaction, autonomy, and decision making aspects of these systems requires the use of modeling.  We propose a conceptual model which models human machine interaction systems as a group of actors connected by a network of communication channels.  We also propose a workload taxonomy derived from a review of the relevant literature which we then apply to the conceptual model.  We present a simulation framework implemented in Java, with an optional XML model parser, which can be analyzed using the Java Pathfinder (JPF) model checker.  The simulator produces a workload profile over time for each human actor in the system.  We conducted case studies by modeling two different UAS.  Wilderness search and rescue using a UAV (WiSAR) and UAS integration into the national air space (NAS).  The results of these case studies, while inconclusive, are consistent with known workload events and the simple workload metric presented by Wickens.
 
-Note that there is a blank line between paragraphs, here.
+
+% modeling framework which allows the various roles and communications within a UAS to be modeled through effective distributed control, augmented autonomy, and intelligent user interfaces. Reliably doing this requires various roles in the system to be modeled. These roles naturally include the roles of the humans, but they also include roles delegated to autonomy and software decision-making algorithms, meaning the GUI and the unmanned aerial vehicle. This paper presents a conceptual model which models the roles of complex systems as a collection of actors, running in parallel.  Results from applying this model to the UAS-enabled Wilderness Search and Rescue (WiSAR) domain indicate (a)~it is possible to model the entire WiSAR system at varying degrees of abstraction (b)~that building and evaluating the model provides insight into the best practices of WiSAR teams and (c)~a way to model human machine interactions that works directly with the Java Pathfinder model checker to detect errors.
+% 
+% Unmanned aerial systems (UASs) often require multiple human operators fulfilling diverse roles for safe correct operation.  Although some dispute the utility of minimizing the number of humans needed to administer a UAS~\cite{MurphyBurke2010}, minimization remains a long-standing objective for many designers.  This paper presents work toward understanding how workload is distributed between multiple human operators and multiple autonomous system elements in a UAS across time, with an ultimate goal to reduce the number of humans in the system. The approach formally models the {\em actors} in a UAS as a set of communicating finite state machines, modified to include a simple form of external memory. The interactions among actors are then modeled as a directed graph.  The individual machines, one for each actor in the UAS, and the directed graph are augmented with workload metrics derived from a review of the relevant literature. The model is implemented as a Java program, which is analyzed by the Java Pathfinder (JPF) model checker, which generates workload profiles over time.  To demonstrate the utility of the approach, this paper presents a case study on a wilderness search and rescue (WiSAR) UAS analyzing two different mission outcomes. The generated workload profiles are shown to be consistent with known features of actual workload events in the WiSAR system. 
 }
 
 \documentkeywords{%
-    Thesis template, poorly-crafted example, conflicting margin instructions
+    human workload, unmanned aerial system, uas, national air space, unmanned aerial vehicle, modeling human machine interaction
 }
 
 \acknowledgments{%
-    Thanks go to the ECEn style file authors for providing both a reasonable initial style and the motivation to abandon it.
+    The authors would like to thank the NSF IUCRC Center for Unmanned Aerial Systems, and the participating industries and labs, for funding the work.
+    The authors would like to thank Neha Rungta of NASA Ames Intelligent
+Systems Division for her help with JPF and Brahms. The authors would also like to thank the NSF IUCRC Center for Unmanned Aerial Systems, and the participating industries and labs, for funding the work. Further thanks go to Jared Moore and Robert Ivie for their help coding the model and editing this paper.
 }
 
 \department{Computer~Science}
-\graduatecoordinator{Dan~Ventura}
+\graduatecoordinator{Quinn~Snell}
 \collegedean{Thomas~W.~Sederberg}
 \collegedeantitle{Associate~Dean}
 
@@ -340,6 +345,14 @@ If you would like an enhancement made to it, you are welcome to do it yourself o
 Please enjoy, and note all kinds of feedback are welcome, especially the kinds that involve deposits into the author's bank account.
 
 \nocite{testentry}
+
+
+\chapter{Modeling}
+
+By far the most challenging aspect of this work was the creation of the models.  By constructing the simulation framework as a set of Java interfaces and abstract classes it meant that the framework was almost entirely extensible in any direction.  We found this very refreshing during the first few development iterations of the framework and model.  We created different Actor types and different sub-Actors within those types.  Each transition used an anonymous method containing logic for enabling the transition.  Eventually as our model grew in size and complexity the freedom of the Java language became a dual edged sword.  Our model was full of implicit declarations, inconsistencies, duplicated code, and anonymous methods.  It became extremely difficult to maintain the model let alone add to it.
+
+\section{Making modeling easier}
+To help improve the modeling experience we chose to 
 
 \bibliographystyle{plainnat}
 \bibliography{references}
