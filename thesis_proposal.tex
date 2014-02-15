@@ -1,280 +1,39 @@
-\documentclass[ms,electronic,twosidetoc,letterpaper,chaptercenter,parttop,lol,lof,lot]{byumsphd}
-% Author: Chris Monson
-%
-% This document is in the public domain
-%
-% Options for this class include the following (* indicates default):
-%
-%   phd (*) -- produce a dissertation
-%   ms -- produce a thesis
-%
-%   electronic -- default official university option, overrides the following:
-%                 - equalmargins
-%
-%   hardcopy -- overrides the following:
-%                 - no equalmargins
-%                 - twoside
-%
-%   letterpaper -- ignored, but helpful for the Makefile that I use
-%
-%   10pt -- 10 point font size
-%   11pt -- 11 point font size
-%   12pt (*) -- 12 point font size
-%
-%   lof -- produce a list of figures in the preamble (off)
-%   lot -- produce a list of tables in the preamble (off)
-%   lol -- produce a list of listings in the preamble (off)
-%
-%   layout -- show layout lines on the pages, helps with overfull boxes (off)
-%   grid -- show a half-inch grid on every page, helps with printing (off)
-%   separator -- print an extra instruction page between preamble and body (off)
-%
-%   twoside (*) -- two-sided output (margins alternate for odd and even pages,
-%     blank pages inserted to ensure that chapters begin on the right side of a
-%     bound copy, etc.)
-%   oneside -- one-sided output (margins are the same on all pages)
-%   equalmargins -- make all margins equal - ugly for binding, but compliant
-%
-%   twosidetoc - start two-sided margins at the TOC instead of the body.  This
-%     is sometimes (oddly) required, but be aware that it will make the page
-%     numbering seem screwy, e.g., the first four full sheets of paper will
-%     have number i-iv (not shown, though), and the next sheets will each have
-%     two numbers, one for each side.  I suspect that most people don't look at
-%     the roman numerals anyway, but it is a weird requirement.
-%
-%   openright (*) -- force new chapters to start on an odd page
-%   openany -- don't use this, it's ugly
-%
-%   prettyheadings -- make the section/chapter headings look nice
-%   compliantheadings (*) -- make them look ugly, but compliant with standards
-%
-%   chaptercenter -- center the chapter headings horizontally
-%   chapterleft (*) -- place chapter headings on the left
-%
-%   partmiddle -- Part headers are centered vertically, no other text on page
-%   parttop (*) -- Part headers at top of page, other text expected
-%
-%   duplexprinter -- Ensures that the two-sided portion starts on the right
-%     side when printing.  This is not for use in submission, since the best
-%     thing to do there is to print everything out one-sided, then take it down
-%     to the copy store to have them do the rest.  It does help to save trees
-%     when you are printing out copies just to look at them and fiddle with
-%     things.
-%
-%
-% EXAMPLES:
-%
-% The rest is up to you.  To fiddle with margins, use the \settextwidth and
-% \setbindingoffset macros, described below.  I suggest that you
-% \settextwidth{6.0in} for better-looking output (otherwise you'll get 3/4-inch
-% margins after binding, which is sort of weird).  This will depend on the
-% opinions of the various dean/coordinator folks, though, so be sure to ask
-% them before embarking on a major formatting task.
-
-% The following command fixes my particular printer, which starts 0.03 inches
-% too low, shifting the whole page down by that amount.  This shifts the
-% document content up so that it comes out right when printed.
-%
-% Discovering this sort of behavior is best done by specifying the ``grid''
-% option in the class parameters above.  It prints a 1/2 inch grid on every
-% page.  You can then use a ruler to determine exactly what the printer is
-% doing.
-%
-% Uncomment to shift content up (accounting for printer problems)
-%\setlength{\voffset}{-.03in}
-
-% Here we set things up for invisible hyperlinks in the document.  This makes
-% the electronic version clickable without changing the way that the document
-% prints.  It's useful, but optional.
-%
-% NOTE: "driverfallback=ps2pdf" chooses ps2pdf in the case of LaTeX and pdftex
-% in the case of pdflatex. If you use my LaTeX makefile (at
-% http://latex-makefile.googlecode.com/) then pdftex is the default There are
-% many other benefits to using the makefile, too.  This option is not always
-% available, so use with care.
-\usepackage[
-    bookmarks=true,
-    bookmarksnumbered=true,
-    breaklinks=false,
-    raiselinks=true,
-    pdfborder={0 0 0},
-    colorlinks=false,
-    plainpages=false,
-    ]{hyperref}
-
-% To fiddle with the margin settings use the below.  DO NOT change stuff
-% directly (like setting \textwidth) - it will break subtle things and you'll
-% be tearing your hair out.
-%
-% For example, if you want 1.5in equal margins, or 2in and 1in margins when
-% printing, add the following below:
-%
-%\setbindingoffset{1.0in}
-%\settextwidth{5.5in}
-%
-% When equalmargins is specified in the class options, the margins will be
-% equal at 1.5in each: (8.5 - 5.5) / 2.  When equalmargins is not specified,
-% the inner margin will be 2.0 and the outer margin will be 1.0: inner = (8.5 -
-% 5.5 - 1.0) / 2 + 1.0 (the 1.0 is the binding offset).
-%
-% The idea is this: you determine how much space the text is going to take up,
-% whether for an electronic document (equalmargins) or not.  You don't want the
-% layout shifting around between printed and electronic documents.
-%
-% So, you specify the text width.  Then, if there is a binding offset (when
-% binding your thesis, the binding takes up space - usually 0.5 inches), that
-% reduces the visual space on the final printed copy.  So, the *effective*
-% margins are calculated by reducing the page size by the binding offset, then
-% computing the remaining space and dividing by two.  Adding back in the
-% binding offset gives the inner margin.  The outer margin is just what's left.
-%
-% All of this is done using the geometry package, which should be manipulated
-% directly at your peril.  It's best just to use the above macros to manipulate
-% your margins.
-%
-% That said, using the geometry macro to set top and bottom margins, or
-% anything else vertical, is perfectly safe and encouraged, e.g.,
-%
-%\geometry{top=2.0in,bottom=2.0in}
-%
-% Just don't fiddle with horizontal margins this way.  You have been warned.
-
-% This makes hyperlinks point to the tops of figures, not their captions
-\usepackage[all]{hypcap}
-
-% These packages allow the bibliography to be sorted alphabetically and allow references to more than one paper to be sorted and compressed (i.e. instead of [5,2,4,6] you get [2,4-6])
-\usepackage[numbers,sort&compress]{natbib}
-%\usepackage{hypernat}
-
+\documentclass[12pt]{IEEEtran}
+\usepackage{float}
 \usepackage{graphicx}
 \usepackage{pdfpages}
+\usepackage[a4paper, margin=1in]{geometry}
+\usepackage{rotating}
+\floatstyle{plain} 
+\restylefloat{figure}
+\floatstyle{boxed}
+\newfloat{boxedfig}{htp}{lop}
+\floatname{boxedfig}{Figure}
+\restylefloat{boxedfig}
+\newfloat{mapping}{htp}{lop}
+\floatname{mapping}{Mapping}
+\floatstyle{plain}
+\restylefloat{mapping}
 
-% Because I use these things in more than one place, I created new commands for
-% them.  I did not use \providecommand because I absolutely want LaTeX to error
-% out if these already exist.
-\newcommand{\Title}{Modeling Human Workload in Unmanned Aerial Systems}
-\newcommand{\Author}{TJ Gledhill}
-\newcommand{\GraduationMonth}{April}
-\newcommand{\GraduationYear}{2014}
-
-% Set up the internal PDF information so that it becomes part of the document
-% metadata.  The pdfinfo command will display this.
-\hypersetup{%
-    pdftitle=\Title,%
-    pdfauthor=\Author,%
-    pdfsubject={MS Thesis, BYU CS Department: %
-                Degree Granted \GraduationMonth~\GraduationYear, Document Created \today},%
-    pdfkeywords={human machine interface, workload metrics, model checking},%
-}
-
-% Rewrite the itemize, description, and enumerate environments to have more
-% reasonable spacing:
-\newcommand{\ItemSep}{\itemsep 0pt}
-\let\oldenum=\enumerate
-\renewcommand{\enumerate}{\oldenum \ItemSep}
-\let\olditem=\itemize
-\renewcommand{\itemize}{\olditem \ItemSep}
-\let\olddesc=\description
-\renewcommand{\description}{\olddesc \ItemSep}
-
-% Important settings for the byumsphd class.
-\title{\Title}
-\author{\Author}
-
-\committeechair{Michael~A.~Goodrich}
-\committeemembera{Kevin~Seppi}
-\committeememberb{Eric~M.~Mercer}
-
-\monthgraduated{\GraduationMonth}
-\yeargraduated{\GraduationYear}
-\yearcopyrighted{\GraduationYear}
-
-\documentabstract{%
-Unmanned aerial systems (UASs) often require multiple human operators fulfilling diverse roles for safe correct operation~\cite{GoodrichMorse2008,MurphyStoverPrattGriffin2006,Cummings2007}. Although some dispute the utility of minimizing the number of humans needed to administer a UAS~\cite{MurphyBurke2010}, minimization remains a long-standing objective for many designers.  Reliably designing the human interaction, autonomy, and decision making aspects of these systems requires the use of modeling.  We propose a conceptual model which models human machine interaction systems as a group of actors connected by a network of communication channels.  We also propose a workload taxonomy derived from a review of the relevant literature which we then apply to the conceptual model.  We present a simulation framework implemented in Java, with an optional XML model parser, which can be analyzed using the Java Pathfinder (JPF) model checker.  The simulator produces a workload profile over time for each human actor in the system.  We conducted case studies by modeling two different UAS.  Wilderness search and rescue using a UAV (WiSAR) and UAS integration into the national air space (NAS).  The results of these case studies, while inconclusive, are consistent with known workload events and the simple workload metric presented by Wickens~\cite{wickens2002multiple}.
-
-
-% modeling framework which allows the various roles and communications within a UAS to be modeled through effective distributed control, augmented autonomy, and intelligent user interfaces. Reliably doing this requires various roles in the system to be modeled. These roles naturally include the roles of the humans, but they also include roles delegated to autonomy and software decision-making algorithms, meaning the GUI and the unmanned aerial vehicle. This paper presents a conceptual model which models the roles of complex systems as a collection of actors, running in parallel.  Results from applying this model to the UAS-enabled Wilderness Search and Rescue (WiSAR) domain indicate (a)~it is possible to model the entire WiSAR system at varying degrees of abstraction (b)~that building and evaluating the model provides insight into the best practices of WiSAR teams and (c)~a way to model human machine interactions that works directly with the Java Pathfinder model checker to detect errors.
-% 
-% Unmanned aerial systems (UASs) often require multiple human operators fulfilling diverse roles for safe correct operation.  Although some dispute the utility of minimizing the number of humans needed to administer a UAS~\cite{MurphyBurke2010}, minimization remains a long-standing objective for many designers.  This paper presents work toward understanding how workload is distributed between multiple human operators and multiple autonomous system elements in a UAS across time, with an ultimate goal to reduce the number of humans in the system. The approach formally models the {\em actors} in a UAS as a set of communicating finite state machines, modified to include a simple form of external memory. The interactions among actors are then modeled as a directed graph.  The individual machines, one for each actor in the UAS, and the directed graph are augmented with workload metrics derived from a review of the relevant literature. The model is implemented as a Java program, which is analyzed by the Java Pathfinder (JPF) model checker, which generates workload profiles over time.  To demonstrate the utility of the approach, this paper presents a case study on a wilderness search and rescue (WiSAR) UAS analyzing two different mission outcomes. The generated workload profiles are shown to be consistent with known features of actual workload events in the WiSAR system. 
-}
-
-\documentkeywords{%
-    human workload, unmanned aerial system, uas, national air space, unmanned aerial vehicle, modeling human machine interaction
-}
-
-\acknowledgments{%
-    The authors would like to thank the NSF IUCRC Center for Unmanned Aerial Systems, and the participating industries and labs, for funding the work.
-    The authors would like to thank Neha Rungta of NASA Ames Intelligent
-Systems Division for her help with JPF and Brahms. The authors would also like to thank the NSF IUCRC Center for Unmanned Aerial Systems, and the participating industries and labs, for funding the work. Further thanks go to Jared Moore and Robert Ivie for their help coding the model and editing this paper.
-}
-
-\department{Computer~Science}
-\graduatecoordinator{Quinn~Snell}
-\collegedean{Thomas~W.~Sederberg}
-\collegedeantitle{Associate~Dean}
-
-% Customize the name of the Table of Contents section.
-\renewcommand\contentsname{Table of Contents}
-
-% Remove all widows an orphans.  This is not normally recommended, but in a
-% paper dissertation there is no reasonable way around it; you can't exactly
-% rewrite already-published content to fix the problem.
-\clubpenalty 10000
-\widowpenalty 10000
-
-% Allow pages to have extra blank space at the bottom in order to accommodate
-% removal of widows and orphans.
-\raggedbottom
-
-% Produce nicely formatted paragraphs. There is nothing additional to do.  In
-% case you get some problems, surround your text with
-% \begin{sloppy} ... \end{sloppy}. If that does not work, try
-% \microtypesetup{protrusion=false} ... \microtypesetup{protrusion=true}
-\usepackage{microtype}
+%opening
+\title{Software support for UAV Enabled Wilderness Search and Rescue}
+\author{TJ Gledhill}
 
 \begin{document}
 
-% Produce the preamble
-\microtypesetup{protrusion=false}
 \maketitle
-\microtypesetup{protrusion=true}
 
-
-\chapter{Introduction and Overview}
-Most existing Unmanned Aerial Systems (UASs) require two or more human operators\cite{GoodrichMorse2008,MurphyStoverPrattGriffin2006}. Standard UAS practice is to have one human to control the aerial vehicle and another to control the camera or other payloads. In addition to this a third human is often responsible for overseeing task completion and interfacing with the command structure. Although some argue persuasively that this is a desirable organization~\cite{MurphyBurke2010}, there is considerable interest in reducing the required number of humans and reducing human workload using improved autonomy and enhanced user interfaces~\cite{Cummings2007,MitchellCummings2005,Goodrich2010}.
-
-Our initial proposal was to move directly into software development.  Given our prior experience with UAS-enabled Wilderness Search and Rescue (WiSAR)~\cite{Goodrich2010} we proposed to construct a UAS for that domain.  During the requirement gathering and design steps of this project it became clear just how complex the system was.  While we had prototypes of almost all the functionality we had no way of measuring if the system itself would meet the requirements.  On top of that the limited time and resources meant that we would only get one shot at creating this system.  Because of this we decided to take a more conservative approach.  Instead of blindly pressing forward with the software development we decided that it would be more beneficial to validate our designs through modeling.
-
-System modeling is not a new approach.  There are many different modeling languages each of which is designed to perform specific types of validation~\cite{bolton2013litreview}.  While it was possible to extend an existing modeling language to support our goals much like Bolton and Bass have done with EOFM~\cite{}.  We chose to create our own modeling language from scratch.  We chose this direction for a few reasons not the least of which being our lack of experience with other modeling languages.  Instead of learning a new language we desired to use a language and model checker we were already familiar with, Java and Java Pathfinder.  Also, a common denominator among system modeling languages is the focus on tasks.  This is ideal for modeling an existing system, however, for new systems these detailed tasks are vague or undefined~\cite{find evidence to back this up}.  We needed to be able to model and validate these tasks without needing to understand their details.  We also desired to measure human workload as a consequence of the system design, something which is relatively new to human machine interface validation~\cite{bolton2013litreview}.
-
-Our modeling language allows models to be implemented in Java simply by implementing a core set of Java interfaces which comply with our conceptual model.  These models are then processed in a simulation framework which is run inside JPF for the model checking and metric gathering.  The conceptual model underneath the modeling framework consists of Directed Role Graphs (DiRGs) and Directed Team Graphs (DiTGs) which focus on the key Actors within the system and the communication channels which they use to perform their work.  The model itself is defined as a state machine.  This common approach to modeling allows us a flexible approach to abstraction while still allowing us to gather workload data and lends itself well to model checking.
-
-We chose to base our workload measurements off of multiple resource theory~\cite{wickens} with ties to queing theory~\cite{queuetheory} and operator fan-out theory~\cite{}.  By relating these theories to the different operational components of the model we can obtain a quantitative measure of an Actors workload for each time-step in the system.
-
-We performed two case studies, one for WiSAR and another representing the introduction of a UAS into the National Air Space (NAS).  We chose WiSAR because of the host of modeling information available to us~\cite{Adams2008}.  We chose to model a UAS operating within the NAS because of the current interest in the subject~\cite{UASinNAS} and the decided lack of modeling information available to us which required us to use high levels of abstraction.  The results of the case studies show that the modeling language we developed is capable of accurately modeling UASs.  They also demonstrate the ability to model systems using varying degrees of abstraction.  While the workload metrics are still unverified initial results appear very promising and trend well with known high workload areas.
-
-
-\section{Overview and Papers}
-Chapters 2 and 3 of this thesis consist of two published papers.  Chapter 2 introduces some of the
-
-\chapter{Modeling UASs for Role Fusion and Human Machine Interface Optimization}
-
-
-\chapter{Modeling Human Workload in Unmanned Aerial Systems}
-
-
-\chapter{Refactoring the Modeling Framework}
-
-
-\chapter{Case Study: UAS operating in the NAS}
-
-\chapter{Conclusions and Future Work}
-
-
-
-\appendix
-
-\chapter{UAS-enabled WiSAR Proposal} \label{app:uas_wisar}
+\begin{abstract}
+\textit{Aerial surveillance in wilderness search and rescue is a very successful
+tool, but, it is also very expensive.
+Most aerial surveillance is done with planes, helicopters, and commercial UAV’s which are expensive to purchase, maintain, and to fly.  
+This Thesis proposes that similarly effective aerial surveillance can be
+performed using low cost UAV’s if they are used in conjunction with software specifically designed to enhance the capabilities of the UAV.
+This software, referred to as UE-WiSAR(UAV-Enabled Wilderness Search And
+Rescue), is a combination of refactored working prototypes that will
+enhance low cost UAV’s in three main areas:
+Universal Ground Control, Command and Control, and Visual Analysis.}
+\end{abstract}
 
 \section{INTRODUCTION}
 Advances in Micro Unmanned Aerial Vehicle (mUAV) technology has pushed mUAVs
@@ -296,6 +55,13 @@ challenges and a plan for creating UE-WiSAR software that incorporates said
 solutions into a stable software package as part of an industrial thesis.  As an
 industrial thesis the emphasis is not on new research but on delivering high
 quality software
+
+%   A software package that will be a
+% viable asset to the SAR community, a model for future Human Robot Interaction
+% software and a valuable research tool.  The hope is that this software may
+% eventually become an established tactic for SAR operations and, in keeping with
+% the BYU motto of "Go Forth and Serve", be an effective source of service for
+% individuals lost in the wilderness.
 
 \section{PREVIOUS WORK}
 One goal of this project is to take past research and present it in a software
@@ -1269,132 +1035,15 @@ community further increasing its ability to serve those communities it is meant
 to serve.
 
 
+% \includepdf[pages={1,3,4,2},landscape=true, addtolist={ 1,figure,Obstacle Map, fig:obstaclemap,
+% 		3,figure,UAV Piloting Solution Map, fig:uavpilotingmap,
+% 		4,figure,Object Detection Solution Map, fig:objectdetectionmap,
+% 		2,figure,WiSAR Integration Solution Map, fig:wisarintegrationmap
+% 	}]{obstacle_solution_map.pdf}
 
-
-
-
-
-% \chapter{Introduction}
-% 
-% To use this package, you must first declare it as your document class
-% \begin{verbatim}
-%     \documentclass[<options>]{byumsphd}
-% \end{verbatim}
-% then put the \verb|\maketitle| command at the beginning of your document and add the remaining content.  This class is meant to ensure that the last part really is the hard part; nobody wants to go through years of research and hard work only to discover that their margins are next to impossible to get right.
-% 
-% The class declaration is, of course, not all that is required.  Several things must be specified in the preamble of your document before the appropriate preface material can be generated.  Each of these is discussed within its own section.
-% 
-% \section{Class Options}
-% 
-% This class has several options that affect document output in various ways.  These are described in detail here.
-% 
-% \begin{itemize}
-%     \item Document Type:
-%         \begin{itemize}
-%             \item \textbf{phd (default)}: Produce a dissertation
-%             \item \textbf{ms} Produce a thesis
-%             \item \textbf{electronic}: Make an ETD (sets equalmargins, oneside)
-%             \item \textbf{hardcopy}: Make bindable (sets no equalmargins, twoside)
-%         \end{itemize}
-% \pagebreak
-%     \item Font Size:
-%         \begin{itemize}
-%             \item \textbf{10pt}
-%             \item \textbf{11pt}
-%             \item \textbf{12pt (default)}
-%         \end{itemize}
-%     \item Preamble Settings:
-%         \begin{itemize}
-%             \item \textbf{lot}: Produce a List of Tables (default off)
-%             \item \textbf{lof}: Produce a List of Figures (default off)
-%             \item \textbf{lol}: Produce a List of Listings (default off)
-%         \end{itemize}
-%     \item Page Formatting:
-%         \begin{itemize}
-%             \item \textbf{equalmargins}: Make all margins equal - no binding offset
-%             \item \textbf{twoside (default)}: Alternate margins for even and odd pages
-%             \item \textbf{oneside}: One-sided document - margins don't alternate
-%             \item \textbf{twosidetoc}: Start two-sided margins at the TOC, don't wait for the document body and arabic numerals to do it.  This is a strange requirement that I have seen in some places, especially strange since it means that the page numbering will change suddenly in the middle of the roman numerals (the first four full sheets might have numbers i-iv, but not printed, and the next sheets will each have two page numbers; most people probably won't notice, but it's still a weird requirement).
-%             \item \textbf{openright (default)}: Chapters start on an odd page
-%             \item \textbf{openany}: Chapters start anywhere (tip: don't use this)
-%             \item \textbf{duplexprinter}: If printing two-sided (to save trees while evaluating the state of things, for example), this ensures that a blank page is printed when necessary between the front matter and the first chapter, ensuring that the first chapter starts on the front of a sheet (the right side).  It is important to note that you should \emph{not} plan on using this to generate the final document.  Paper that is required for theses is typically much heavier and more opaque than paper you are going to have in your department printer.  Print everything one-sided so that text from the back of a page doesn't bleed through when getting copied for the final draft.  Here is how I suggest you print the final draft:
-%               \begin{itemize}
-%                 \item Print the entire document \emph{without} this option (but \emph{with} the twoside option so that page margins alternate correctly).
-%                 \item Take it to the copy center and say the word "thesis" to someone behind the counter.
-%                 \item Show her the front matter and say "one-sided".  A sticky note is likely to be applied.
-%                 \item Show her the rest and say "two-sided".
-%                 \item Smile: she has your baby in her hands.
-%                 \item Pay and wait until it's done.
-%               \end{itemize}
-%         \end{itemize}
-%     \item Miscellaneous Layout:
-%         \begin{itemize}
-%             \item \textbf{prettyheadings (default)}: Allow larger font sizes for chapter, part, and section headings.  If you can get away with it, use this.
-%             \item \textbf{compliantheadings}: Use the same font size for everything -- ugly, but compliant with the minimum style requirements.
-%             \item \textbf{simplechapterheading}: Chapter headings are "simple", meaning that they are of the format "1 Title" instead of "Chapter 1(newline)Title".
-%             \item \textbf{chapterleft (default)}: Chapter headings are left justified
-%             \item \textbf{chaptercenter}: Chapter headings are centered
-%             \item \textbf{partmiddle (default)}: Part headings are vertically centered
-%             \item \textbf{parttop}: Part headings are near the top of the page, appropriate if each part contains introductory text.
-%         \end{itemize}
-% \pagebreak
-%     \item Visualization Aids (all default to off):
-%         \begin{itemize}
-%             \item \textbf{layout}: Display dotted lines for help with layouts.  Shows the margins (helpful for finding overfull hboxes, etc.)
-%             \item \textbf{grid}: Display a \( 1/2 \)-inch grid on every page.  When printing your document, use this on one of the pages to find out whether the printer shifts things down or not.  My printer shifts everything down by \( 0.03 \) inches, which doesn't sound like a lot, but can make a huge difference, especially considering that paper is not actually \( 8 1/2 \) by \( 11 \), but a little smaller than that in each dimension.
-%             \item \textbf{separator}: Output an extra instruction page in between the preamble and the body of the document.  Even if the document is two-sided, the preamble \emph{never} is, so this page reminds you or the printing service that this is the case while giving appropriate instructions for the remainder of the document.  It \emph{will not print} if the document is all one-sided (there's no point, really), and it should \emph{never} be included in your final copies of the document, but discarded during printing.  If it is not discarded, it is probably harmless since you can just throw it away after getting copies made.
-%         \end{itemize}
-% \end{itemize}
-% 
-% \section{Preamble Setup Commands}
-% 
-% In order to produce a correct preamble, several things must be set, and others can optionally be added.  The settings described next affect the behavior of \verb|\maketitle|.  These are required:
-% \begin{itemize}
-%     \item \verb|\title{<your document title>}|
-%     \item \verb|\committeechair{<your adviser's name>}|
-%     \item \verb|\committeemembera{<second member>}|
-%     \item \verb|\committeememberb{<third member>}|
-%     \item \verb|\committeememberc{<fourth member (PhD only)>}|
-%     \item \verb|\committeememberd{<fifth member (PhD only)>}|
-%     \item \verb|\monthgraduated{<month of graduation>}|
-%     \item \verb|\yeargraduated{<hopefully this year>}|
-%     \item \verb|\documentabstract{<your thesis abstract goes here>}|
-% \end{itemize}
-% The following are optional or have defaults suitable for CS majors:
-% \begin{itemize}
-%     \item \verb|\yearcopyrighted{<defaults to year graduated>}|
-%     \item \verb|\acknowledgments{<the text of your acknowledgments goes here>}|
-%     \item \verb|\university{<default: Brigham Young University>}|
-%     \item \verb|\department{<default: Computer Science>}|
-%     \item \verb|\graduatecoordinator{<default: Parris K. Egbert>}|
-%     \item \verb|\college{<default: Physical and Mathematical Sciences>}|
-%     \item \verb|\collegedean{<default: Thomas W. Sederberg>}|
-%     \item \verb|\collegedeantitle{<default: Associate Dean>}|
-%     \item \verb|\settextwidth{<default: 6in>}|
-%     \item \verb|\setbindingoffset{<default: 0.5in (for non-equalmargins)>}|
-% \end{itemize}
-% 
-% \chapter{Parting Shots}
-% 
-% If you are interested in getting a handle on what the class is doing, read the source; it is heavily commented and frankly one of the easiest-to-understand classes I have ever seen.  It uses a minimum of deep {\TeX} trickery to accomplish its designs.
-% 
-% If you would like an enhancement made to it, you are welcome to do it yourself or to contact the author; information is available in the class file comments.  License information is also available there, but boils down to basically this: you can do what you like with this file, but if you change it, change the name.  If you have a change that you think belongs in the main distribution, contact the author and it will most likely be included in the official class file.
-% 
-% Please enjoy, and note all kinds of feedback are welcome, especially the kinds that involve deposits into the author's bank account.
-% 
-% \nocite{testentry}
-% 
-% 
-% \chapter{Modeling}
-% 
-% By far the most challenging aspect of this work was the creation of the models.  By constructing the simulation framework as a set of Java interfaces and abstract classes it meant that the framework was almost entirely extensible in any direction.  We found this very refreshing during the first few development iterations of the framework and model.  We created different Actor types and different sub-Actors within those types.  Each transition used an anonymous method containing logic for enabling the transition.  Eventually as our model grew in size and complexity the freedom of the Java language became a dual edged sword.  Our model was full of implicit declarations, inconsistencies, duplicated code, and anonymous methods.  It became extremely difficult to maintain the model let alone add to it.
-% 
-% \section{Making modeling easier}
-% To help improve the modeling experience we chose to 
-
-\bibliographystyle{plainnat}
-\bibliography{references}
+\newpage
+\bibliography{wisar_library2}
+\nocite{*}
+\bibliographystyle{plain}
 
 \end{document}
-
-% vim: lbr
