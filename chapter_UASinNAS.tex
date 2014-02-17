@@ -49,3 +49,19 @@ The number of assumptions made in this scenario is too great to fully list.  Ins
 
 \section{Building the Model}
 
+Building the model using XML was a very different experience.  In retrospect it would have been valuable to have WiSAR modeled in Java and XML so a direct comparison would be available.  Initially working with a single xml file instead of multiple Java class files was very convenient.  Additionally the ability to validate the model each time we added a new transition led to very rapid development.  Unfortunately as the model complexity increased the added readability, see figure~\ref{fig:}, was not enough to counter the complexity as the number of transitions and inter-Actor communications increased.  
+
+\begin{figure}[h]
+\begin{center}
+\subfigure[Java Transition]{
+	\includegraphics[width=\textwidth]{java_transition.png}
+	\label{subfig:subtop}
+}
+\subfigure[XML Transition]{
+	\includegraphics[width=\textwidth]{xml_transition.png}
+	\label{subfig:subbot}
+}
+\caption{Transition Readability Comparison}
+\label{fig:read_transition}
+\end{center}
+\end{figure}
