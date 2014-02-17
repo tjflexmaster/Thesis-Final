@@ -49,7 +49,7 @@ The number of assumptions made in this scenario is too great to fully list.  Ins
 
 \section{Building the Model}
 
-Building the model using XML was a very different experience.  In retrospect it would have been valuable to have WiSAR modeled in Java and XML so a direct comparison would be available.  Initially working with a single xml file instead of multiple Java class files was very convenient.  Additionally the ability to validate the model each time we added a new transition led to very rapid development.  Unfortunately as the model complexity increased the added readability, see figure~\ref{fig:}, was not enough to counter the complexity as the number of transitions and inter-Actor communications increased.  
+Building the model using XML was a very different experience.  In retrospect it would have been valuable to have WiSAR modeled in Java and XML so a direct comparison would be available.  Initially working with a single xml file instead of multiple Java class files was very convenient.  Additionally the ability to validate the model each time we added a new transition led to very rapid development.  Unfortunately as the model complexity increased the added readability, see figure~\ref{fig:read_transition}, was not enough to counter the complexity as the number of transitions and inter-Actor communications increased.  
 
 \begin{figure}[h]
 \begin{center}
@@ -63,5 +63,67 @@ Building the model using XML was a very different experience.  In retrospect it 
 }
 \caption{Transition Readability Comparison}
 \label{fig:read_transition}
+\end{center}
+\end{figure}
+
+The Enhanced Operator Function Model (EOFM), a similar modeling language which is XML based, is able to be seen visually as a tree-like graph due to the modeling structure~\cite{bolton2011toward}.  This visualization allows the modeler to see the hierarchical ordering of actions belonging to a task.  Our xml structure does not lend itself naturally to a visualization which grants additional insight into the model behavior.
+
+\subsection{Modeling Approach and Common Errors}
+
+Past experience has shown us that modeling these complex systems can become very difficult.  In an effort to reduce the complexity we used the following modeling approach.  We first defined each Actor in the system and gave them a starting state.  From here we broke the work into task sequences.  Each task sequence represents the flow of data through the system, initiating from an external event.  For example our model begins with a start mission event which is received by the UAV Operator.  We then implement transitions in sequence until no new transitions are needed.  Each time a new transition is added to the model we run the model to check that the XML is correct and to verify that the new transition is reached.  The full model can be seen in appendix~\ref{XMLModel}.
+
+While this approach was effective it was not a trivial task.  By design the transition sequence moves between Actors requiring the modeler to constantly jump around in the model XML.  Transition sequences will often fork when the action of one Actor causes multiple Actors to respond.  This often results in truncated branches within the model which get forgotten.  One reason for running the model after adding a new transition is that when the complexity causes modeling errors they typically appear in two fashions.  The first is when an Actor becomes stuck in a state.  This is the more desirable behavior as it is easier to track down.  The second typical error is an infinite loop.  These can be much more difficult to track down.  Infinite loops are often caused by missing transitions, which is ok while constructing the model.  If the loop is not caused by a missing transition then more in-depth analysis is needed to find the error.  The Java debugger along with our different debug levels and outputs makes tracking down these errors rather straight forward although the process can be time consuming.  While there are many ways to get into an infinite loop we will only mention the two most common, they are improper transition overriding and uncleared output channels.  Transition overriding happens when you have one transition which is overridden by another before it can fire.  While transition overriding is a desirable behavior, gaps in the transition logic can cause an Actor to continuously cycle between transitions without ever firing a transition and moving to the next state. This can be thought of as undefined behavior.  To fix this, define the true behavior for each possible scenario by creating transitions for all combinations of inputs that the model cares about.  The simulator will prevent a transition from replacing itself preventing the infinite loop.  Uncleared output channels can cause an Actor to believe that a new value has been sent causing the Actor to transition into an infinite cycle.  It is often best practice to clear an Actors outputs once those outputs are no longer needed.
+
+While the use of XML to create the model was much more efficient we still feel that a more effective approach to modeling is needed which helps standardize the modeling formats and prevent common errors.  Whether this approach is a different XML structure, an entirely new format, or a GUI interface which helps visualize the data flow and transition sequences we leave to future work.
+
+\section{Model Results}
+
+We were very impressed with the results generated with this new case study.  
+
+\begin{figure}[p]
+\begin{center}
+\includegraphics[width=\textwidth,height=\textheight]{UAS_in_NAS_no_events_UAVOP.png}
+\caption{UAV Operator: Baseline}
+\label{fig:uavop_baseline}
+\end{center}
+\end{figure}
+
+\begin{figure}[p]
+\begin{center}
+\includegraphics[width=\textwidth,height=\textheight]{UAS_in_NAS_no_events_ATC.png}
+\caption{ATC: Baseline}
+\label{fig:atc_baseline}
+\end{center}
+\end{figure}
+
+\begin{figure}[p]
+\begin{center}
+\includegraphics[width=\textwidth,height=\textheight]{UAS_in_NAS_manual_emergency_notam_UAVOP.png}
+\caption{UAV Operator: Manually Avoided Emergency NOTAM}
+\label{fig:uavop_manual}
+\end{center}
+\end{figure}
+
+\begin{figure}[p]
+\begin{center}
+\includegraphics[width=\textwidth,height=\textheight]{UAS_in_NAS_manual_emergency_notam_ATC.png}
+\caption{ATC: Manually Avoided Emergency NOTAM}
+\label{fig:atc_manual}
+\end{center}
+\end{figure}
+
+\begin{figure}[p]
+\begin{center}
+\includegraphics[width=\textwidth,height=\textheight]{UAS_in_NAS_auto_emergency_notam_UAVOP.png}
+\caption{UAV Operator: Auto Avoid Emergency NOTAM}
+\label{fig:uavop_auto}
+\end{center}
+\end{figure}
+
+\begin{figure}[p]
+\begin{center}
+\includegraphics[width=\textwidth,height=\textheight]{UAS_in_NAS_auto_emergency_notam_ATC.png}
+\caption{ATC: Auto Avoid Emergency NOTAM}
+\label{fig:atc_auto}
 \end{center}
 \end{figure}
