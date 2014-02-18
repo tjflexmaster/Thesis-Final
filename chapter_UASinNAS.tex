@@ -78,7 +78,27 @@ While the use of XML to create the model was much more efficient we still feel t
 
 \section{Model Results}
 
-We were very impressed with the results generated with this new case study.  
+We were very impressed with the results generated with this new case study which can be seen in figures~\ref{fig:uavop_baseline},~\ref{fig:atc_baseline},~\ref{fig:uavop_manual},~\ref{fig:atc_manual},~\ref{fig:uavop_auto},\ref{fig:atc_auto}, and~\ref{fig:uavop_conflict}  We created three variations of the model.  The first variation involved an uneventful flight.  The second variation involved the UAV Operator manually avoiding an emergency NOTAM.  The last variation involved the UAS automatically avoiding an emergency NOTAM.  The last two variations also involve a possible UAV collision and the ATC adding a NOTAM onto the UAV flight path.  We currently are only showing the metrics for the human Actors.  For each variation we have four charts depicting the UAV Operator workload and four charts depicting the ATC workload.  The first three charts represent the resource input, resource output, and decision workload.  The last chart shows the combined total workload next to the adapted Wickens workload.  For each chart the y axis represents the workload value while the x axis represents actor state for the given delta time.  What this means is that the x axis cannot be seen as a normal timeline since each time step can be an arbitrary value.  What this does provide is the Actors workload each time something in the system changed.
+
+\subsection{Inter Actor Comparison}
+
+When comparing figures \ref{fig:uavop_baseline} and \ref{fig:atc_baseline} their relationship becomes very clear.  In the scenario what is happening is the UAV Operator creates a flight plan for his mission.  When he finishes the flight plan he sends it to the FAA System where it is flagged to be approved by the ATC.  The ATC then performs the approval and returns back to normal operations.  The UAV Operator receives the approval and begins normal mission operation which involves a slightly higher workload.  This is reflected beautifully in the Actor workload.  The UAV Operator workload spikes during flight plan creation then flat lines while waiting for a response.  Once he receives the response he spikes again as he performs his mission.  The ATC workload is just the opposite spiking while he is approving the flight plan and returning to normal afterwards.  The comparison of the other variations show the same correlations.  We also see from figure \ref{fig:atc_manual} that the delayed action of the UAV Operator causes the ATC to remain in a high workload state for a long period of time telling us that something is wrong.  By looking at the Actor state we see that the UAV Operator was already in the process of deconflicting the UAV and was not able to immediately respond to the ATC emergency NOTAM.  The last variation shows an improvement in this regard as the UAS automatically diverts the UAV out of the emergency NOTAM while the UAV Operator is busy.  This example demonstrates how the workload modeling allows us to detect problems within the model then analyze fixes to those problems.
+
+\subsection{Intra Actor Comparison}
+
+When comparing figures \ref{fig:uavop_manual} and \ref{fig:uavop_auto} at first glance the metrics appear almost identical.  This is good as these models are nearly identical.  Upon closer examination we see that when the UAV Operator has to manually avoid the emergency NOTAM there is a prolonged increase in resource input workload, an extra spike of resource output workload, and a noticeable spike in decision workload once the UAV Operator begins the process of avoiding the NOTAM.  This results in a significant workload spike compared to the more stable workload seen in the automated emergency NOTAM avoidance.  Another difference which is less noticeable is that the manual emergency NOTAM avoidance takes longer to complete than the auto avoid feature something which is critical in these types of situations.
+
+To make this simple model a little more interesting we decided to add an interruption to the auto avoid variation of the model.  See figure \ref{fig:uavop_conflict}.  When the UAV Operator begins the first deconfliction procedure he is interrupted by another person, a dummy Actor added to the model just for this interruption.  Instead of ignoring this interruption the UAV Operator attempts to communicate with this person while still performing the deconfliction procedure.  This results in a visual channel conflict as the UAV Operator is watching both the UAS GUI and the person who interrupted him.  In addition to this the UAV Operator is now in a high load/multi tasking state.  The result is a workload value of 20 which is almost double the next highest workload value seen in the simulation.  Although this spike in workload has yet to be validated it does match our intuition for the situation.  We would also like to point out how well these results lend themselves to workload thresholds.
+
+While we are mostly pleased with the workload results there are a few anomalies in the results which are misleading.  The most commonly occuring anomaly is a drastic decrease in workload followed immediately be an equally drastic increase in workload.  This tends to happen when an Actor is transitioning into the same state it just left.  The spike happens because we are collecting metrics twice for each step in the delta clock.  Once right before the active transitions are fired and once after they are fired.  
+
+\subsection{Workload Analysis}
+
+We found the chart breakdown to be particularly useful in analyzing the results.  In the resource input workload chart we get an idea of how many channels, layers, and memory objects the Actor is observing.  By comparing this with the resource output workload we can see when the inputs occasioned a response from the Actor.  For the most part these charts are well behaved and follow the workload patterns which we know about.
+
+On the other hand the decision workload typically jumps all over the place.  Currently we not sure exactly how important the decision workload is to overall workload metric.  While we believe the increase in decision workload does in fact increase workload we are unsure how to weight this value in comparison with the resource and temporal workload values.  This is something we will explore in future work.
+
+The last analysis we would like to make is the comparison of our workload metric to that of the adapted Wickens metric.  The general flow of the two metrics is very similar, this is expected since everything in the Wickens metric also exists in our workload metric.  What is more interesting is were the two metrics differ.  Our workload metric is comprised of 9 different values each of which can range from 0 to 2+.  This adds a fair amount of detail into the workload measurement which can be seen by comparing the two values for any of the different model variations.  Where Wickens shows a flat line our metric shows a heart beat which tells us much more about what is causing the additional workload.
 
 \begin{figure}[p]
 \begin{center}
@@ -125,5 +145,13 @@ We were very impressed with the results generated with this new case study.
 \includegraphics[width=\textwidth,height=\textheight]{UAS_in_NAS_auto_emergency_notam_ATC.png}
 \caption{ATC: Auto Avoid Emergency NOTAM}
 \label{fig:atc_auto}
+\end{center}
+\end{figure}
+
+\begin{figure}[p]
+\begin{center}
+\includegraphics[width=\textwidth,height=\textheight]{UAS_in_NAS_channel_conflict_UAVOP.png}
+\caption{UAVOP: Auto Avoid Emergency NOTAM w/ Interuption}
+\label{fig:uavop_conflict}
 \end{center}
 \end{figure}
