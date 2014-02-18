@@ -1,0 +1,431 @@
+<team name="Basic UAS in NAS">
+  <channels>
+    <channel name="DATA_UAV_UAS" type="DATA" source="UAV" target="UAS"/>
+    <channel name="VISUAL_UAV_UAVOP" type="VISUAL" source="UAV" target="UAVOP"/>
+    <channel name="VISUAL_UAS_UAVOP" type="VISUAL" source="UAS" target="UAVOP"/>
+    <channel name="AUDIO_UAS_UAVOP" type="AUDIO" source="UAS" target="UAVOP"/>
+    <channel name="TACTILE_UAVOP_UAS" type="TACTILE" source="UAVOP" target="UAS"/>
+    <channel name="DATA_UAS_UAV" type="DATA" source="UAS" target="UAV"/>
+    <channel name="DATA_UAS_FAA" type="DATA" source="UAS" target="FAA"/>
+    <channel name="DATA_FAA_UAS" type="DATA" source="FAA" target="UAS"/>
+    <channel name="VISUAL_FAA_ATC" type="VISUAL" source="FAA" target="ATC"/>
+    <channel name="TACTILE_ATC_FAA" type="TACTILE" source="ATC" target="FAA"/>
+    
+    <channel name="DATA_ATC_STATE" type="DATA" source="ATC" target="ATC"/>   
+  
+    <!-- Event Channels -->
+    <channel name="NEW_MISSION" type="EVENT" source="" target="UAVOP" dataType="String"/>
+    <channel name="RADAR_COLLISION" type="EVENT" source="" target="UAVOP" dataType="String"/>   
+    <channel name="FAA_COLLISION" type="EVENT" source="" target="FAA" dataType="String"/>
+    <channel name="NEW_NOTAM" type="EVENT" source="" target="ATC" dataType="String"/>   
+    <channel name="END_UAV_COLLISION" type="EVENT" source="" target="FAA" dataType="String"/>
+  </channels>
+  
+  <!-- Model Actors -->
+  <actors>
+    <!-- ACTOR UAVOP   ////////////////////////////////////////////////////////////-->
+    <actor name="UAVOP" showMetrics="true">
+      <inputchannels>
+        <channel>VISUAL_UAS_UAVOP</channel>
+        <channel>AUDIO_UAS_UAVOP</channel>
+        <channel>VISUAL_UAV_UAVOP</channel>
+        <channel>NEW_MISSION</channel>
+      </inputchannels>
+      <outputchannels>
+        <channel>TACTILE_UAVOP_UAS</channel>
+      </outputchannels>
+      
+      <!-- Define actor memory -->
+      <memory name="FAA_APPROVED" dataType="Boolean">false</memory>
+      <memory name="FLIGHT_PLAN_READY" dataType="Boolean">false</memory>
+<!--      <memory name="CHANGED_FLIGHT_PLAN" dataType="Boolean">true</memory-->
+      <memory name="FLIGHT_STATE" dataType="String">NONE</memory>
+      
+      
+      <!-- Start state -->
+      <startState>IDLE</startState>
+      
+      <!-- States -->
+      <states>
+        <state name="IDLE" load="0">
+          <!-- transitions -->
+          <transition durationMin="1" durationMax="1" priority="10">
+            <description>Received new mission, begin building flight plan.</description>
+            <inputs>
+              <channel name="NEW_MISSION" predicate="eq">NEW_MISSION</channel>
+            </inputs>
+            <outputs>
+              <channel name="NEW_MISSION"><null/></channel>
+            </outputs>
+            <endState>BUILD_FP</endState>
+          </transition>
+        </state>
+        
+        <state name="BUILD_FP" load="2">
+          <!-- transitions -->
+          <transition durationMin="900" durationMax="1200" priority="10">
+            <description>Build a flight plan</description>
+            <inputs>
+              <memory name="FLIGHT_PLAN_READY" predicate="eq">false</memory>
+              <channel name="VISUAL_UAS_UAVOP" predicate="ne">BLAH</channel>
+            </inputs>
+            <outputs>
+              <channel name="TACTILE_UAVOP_UAS">
+                <layer name="MOUSE" dataType="String">FLIGHT_PLAN</layer>
+                <layer name="KEYBOARD" dataType="String">FLIGHT_PLAN</layer>
+              </channel>
+              <memory name="FLIGHT_PLAN_READY" dataType="Boolean">true</memory>
+            </outputs>
+            <endState>BUILD_FP</endState>
+          </transition>
+          
+          <transition durationMin="1" durationMax="1" priority="10">
+            <description>Click the Send flight plan button</description>
+            <inputs>
+              <memory name="FLIGHT_PLAN_READY" predicate="eq">true</memory>
+              <memory name="FAA_APPROVED" predicate="eq">false</memory>
+              <channel name="VISUAL_UAS_UAVOP" predicate="ne">BLAH</channel>
+            </inputs>
+            <outputs>
+              <channel name="TACTILE_UAVOP_UAS">
+                <layer name="MOUSE" dataType="String">SEND_FLIGHT_PLAN</layer>
+              </channel>
+            </outputs>
+            <endState>END_BUILD_FP</endState>
+          </transition>
+        </state>
+        
+        <state name="END_BUILD_FP" load="0">
+          <transition durationMin="1" durationMax="1" priority="1">
+            <description>Clear mouse and keyboard output layers</description>
+            <inputs>
+            </inputs>
+            <outputs>
+              <channel name="TACTILE_UAVOP_UAS">
+                <layer name="MOUSE"><null/></layer>
+                <layer name="KEYBOARD"><null/></layer>
+              </channel>
+            </outputs>
+            <endState>WAITING_ON_FAA</endState>
+          </transition>
+        </state>
+        
+        <state name="WAITING_ON_FAA" load="1">
+          
+          <transition durationMin="30" durationMax="60" priority="10">
+            <description>FAA approved the flight</description>
+            <inputs>
+              <channel name="VISUAL_UAS_UAVOP">
+                <layer name="FLIGHT_PLAN" predicate="eq">FLIGHT_PLAN_APPROVED</layer>
+              </channel>
+            </inputs>
+            <outputs>
+              <channel name="TACTILE_UAVOP_UAS">
+                <layer name="MOUSE">TAKEOFF</layer>
+              </channel>
+              <memory name="FAA_APPROVED" dataType="Boolean">true</memory>
+            </outputs>
+            <endState>END_WAITING_ON_FAA</endState>
+          </transition>
+          
+        </state>
+        
+        <state name="END_WAITING_ON_FAA" load="0">
+          <transition durationMin="1" durationMax="1" priority="1">
+            <description>Clear user output</description>
+            <inputs>
+            </inputs>
+            <outputs>
+              <channel name="TACTILE_UAVOP_UAS">
+                <layer name="MOUSE"><null/></layer>
+              </channel>
+            </outputs>
+            <endState>MONITOR_TAKEOFF</endState>
+          </transition>
+        </state>
+        
+        <state name="MONITOR_TAKEOFF" load="1">
+          <transition durationMin="1" durationMax="1" priority="1">
+            <description>UAV is airborne, move to monitor GUI</description>
+            <inputs>
+              <channel name="VISUAL_UAV_UAVOP" predicate="eq">FLYING</channel>
+            </inputs>
+            <outputs>
+              <memory name="FLIGHT_STATE">NORMAL</memory>
+            </outputs>
+            <endState>MONITOR_UAVGUI</endState>
+          </transition>
+        </state>
+        
+        <state name="MONITOR_UAVGUI" load="1">
+          <transition durationMin="900" durationMax="900" priority="0">
+            <description>Monitoring the UAVGUI</description>
+            <inputs>
+              <channel name="VISUAL_UAS_UAVOP">
+                <layer name="UAV" predicate="eq">FLYING</layer>
+                <layer name="RADAR" predicate="ne">COLLISION</layer>
+                <layer name="EMERGENCY_NOTAM" predicate="ne">EMERGENCY_NOTAM</layer>
+                <layer name="NEW_NOTAM_ON_FLIGHT_PATH" predicate="ne">NEW_NOTAM_ON_FLIGHT_PATH</layer>
+              </channel>
+            </inputs>
+            <outputs>
+              <channel name="TACTILE_UAVOP_UAS">
+                <layer name="MOUSE">MONITORING_UAVGUI</layer>
+              </channel>
+            </outputs>
+            <endState>MONITOR_UAVGUI</endState>
+          </transition>
+          
+          <transition durationMin="1" durationMax="1" priority="10">
+            <description>Operator sees that the UAV is beginning the landing approach</description>
+            <inputs>
+              <channel name="VISUAL_UAS_UAVOP">
+                <layer name="UAV" predicate="eq">LANDING</layer>
+              </channel>
+            </inputs>
+            <outputs>
+              
+            </outputs>
+            <endState>MONITOR_LANDING</endState>
+          </transition>
+          
+          <transition durationMin="1" durationMax="1" priority="20">
+            <description>Operator sees a potential conflict and trys to avoid it</description>
+            <inputs>
+              <channel name="VISUAL_UAS_UAVOP">
+                <layer name="RADAR" predicate="eq">COLLISION</layer>
+              </channel>
+            </inputs>
+            <outputs></outputs>
+            <endState>AVOID_COLLISION</endState>
+          </transition>
+          
+          <transition durationMin="1" durationMax="1" priority="19">
+            <description>Operator notices an emergency notam on the UAV and attempts to assist</description>
+            <inputs>
+              <channel name="VISUAL_UAS_UAVOP">
+                <layer name="EMERGENCY_NOTAM" predicate="eq">EMERGENCY_NOTAM</layer>
+              </channel>
+            </inputs>
+            <outputs>
+              <memory name="FLIGHT_STATE">EMERGENCY_NOTAM</memory>
+            </outputs>
+            <endState>AVOID_EMERGENCY_NOTAM</endState>
+          </transition>
+          
+          <transition durationMin="1" durationMax="1" priority="18">
+            <description>Operator notices that the UAV is avoiding a NOTAM and attempts to assist</description>
+            <inputs>
+              <channel name="VISUAL_UAS_UAVOP">
+                <layer name="UAV" predicate="eq">AVOID_NOTAM</layer>
+              </channel>
+            </inputs>
+            <outputs>
+              <memory name="FLIGHT_STATE">EMERGENCY_NOTAM</memory>           
+            </outputs>
+            <endState>AVOID_EMERGENCY_NOTAM</endState>
+          </transition>
+          
+          <transition durationMin="1" durationMax="1" priority="15">
+            <description>Operator notices new NOTAM(s) on the flight plan, begin changing the flight plan.</description>
+            <inputs>
+              <channel name="VISUAL_UAS_UAVOP">
+                <layer name="NEW_NOTAM_ON_FLIGHT_PATH" predicate="eq">NEW_NOTAM_ON_FLIGHT_PATH</layer>
+              </channel>
+              <memory name="FLIGHT_STATE" predicate="eq">NORMAL</memory>
+            </inputs>
+            <outputs>
+              <memory name="FLIGHT_STATE">NEW_NOTAMS</memory>
+            </outputs>
+            <endState>AVOID_NOTAM</endState>
+          </transition>
+        </state>
+                                                           
+        <state name="MONITOR_LANDING" load="1">
+          <transition durationMin="30" durationMax="60" priority="10">
+            <description>Operator sees that the UAV has landed and sets the mission to complete.</description>
+            <inputs>
+              <channel name="VISUAL_UAS_UAVOP">
+                <layer name="UAV" predicate="eq">GROUNDED</layer>
+              </channel>
+            </inputs>
+            <outputs>
+              <channel name="TACTILE_UAVOP_UAS">
+                <layer name="KEYBOARD">MISSION_COMPLETE</layer>
+                <layer name="MOUSE">MISSION_COMPLETE</layer>
+              </channel>
+            </outputs>
+            <endState>IDLE</endState>
+          </transition>
+        </state>
+        
+        <state name="AVOID_COLLISION" load="2">
+          <transition durationMin="300" durationMax="600" priority="100">
+            <description>Operator is in the act of deconflicing the UAV</description>
+            <inputs>
+              <channel name="VISUAL_UAS_UAVOP">
+                <layer name="RADAR" predicate="eq">COLLISION</layer>
+              </channel>
+            </inputs>
+            <outputs>
+              <channel name="TACTILE_UAVOP_UAS">
+                <layer name="KEYBOARD">AVOID_COLLISION</layer>
+                <layer name="MOUSE">AVOID_COLLISION</layer>
+              </channel>
+            </outputs>
+            <endState>AVOID_COLLISION</endState>
+          </transition>
+          
+          <transition durationMin="1" durationMax="1" priority="10">
+            <description>Collision has been avoided, return to watching the UAVGUI</description>
+            <inputs>
+              <channel name="VISUAL_UAS_UAVOP">
+                <layer name="RADAR" predicate="ne">COLLISION</layer>
+              </channel>
+            </inputs>
+            <outputs>
+              <channel name="TACTILE_UAVOP_UAS">
+                <layer name="KEYBOARD"><null/></layer>
+                <layer name="MOUSE"><null/></layer>
+              </channel>
+            </outputs>
+            <endState>MONITOR_UAVGUI</endState>
+          </transition>
+        </state>
+        
+        <state name="AVOID_EMERGENCY_NOTAM" load="1">
+          <transition durationMin="300" durationMax="300" priority="1">
+            <description>Operator is waiting for the UAV to auto remove itself from the Emergency Notam</description>
+            <inputs>
+<!--              <channel name="VISUAL_UAS_UAVOP">-->
+<!--                <layer name="EMERGENCY_NOTAM" predicate="eq">EMERGENCY_NOTAM</layer>-->
+<!--                <layer name="UAV" predicate="ne">LOITER</layer>-->
+<!--              </channel>-->
+<!--              <memory name="FLIGHT_STATE" predicate="eq">EMERGENCY_NOTAM</memory>-->
+            </inputs>
+            <outputs>
+              <!-- DO Nothing the UAV will fix itself, then we will continue -->
+<!--              <channel name="TACTILE_UAVOP_UAS">-->
+<!--                <layer name="KEYBOARD">CHANGE_FLIGHT_PLAN</layer>-->
+<!--                <layer name="MOUSE">CHANGE_FLIGHT_PLAN</layer>-->
+<!--              </channel>-->
+<!--              <memory name="CHANGED_FLIGHT_PLAN">true</memory>-->
+            </outputs>
+            <endState>AVOID_EMERGENCY_NOTAM</endState>
+          </transition>
+          
+          <transition durationMin="5" durationMax="5" priority="100">
+            <description>Operator sees that the UAV is loitering, have it resume flight now.</description>
+            <inputs>
+              <channel name="VISUAL_UAS_UAVOP">
+                <layer name="EMERGENCY_NOTAM" predicate="ne">EMERGENCY_NOTAM</layer>
+                <layer name="UAV" predicate="eq">LOITER</layer>
+              </channel>
+              <memory name="FLIGHT_STATE" predicate="eq">EMERGENCY_NOTAM</memory>
+            </inputs>
+            <outputs>
+              <channel name="TACTILE_UAVOP_UAS">
+                <layer name="KEYBOARD">RESUME_FLIGHT</layer>
+                <layer name="MOUSE">RESUME_FLIGHT</layer>
+              </channel>
+              <memory name="FLIGHT_STATE">NORMAL</memory>
+            </outputs>
+            <endState>AVOID_EMERGENCY_NOTAM</endState>
+          </transition>
+          
+          <transition durationMin="1" durationMax="1" priority="10">
+            <description>NOTAM has been avoided, return to watching the UAVGUI</description>
+            <inputs>
+              <memory name="FLIGHT_STATE" predicate="eq">NORMAL</memory>
+            </inputs>
+            <outputs>
+              <channel name="TACTILE_UAVOP_UAS">
+                <layer name="KEYBOARD"><null/></layer>
+                <layer name="MOUSE"><null/></layer>
+              </channel>
+            </outputs>
+            <endState>MONITOR_UAVGUI</endState>
+          </transition>
+        </state>
+        
+        <state name="AVOID_NOTAM" load="1">
+          <transition durationMin="600" durationMax="1200" priority="10">
+            <description>Operator is changing the flight plan for a normal NOTAM</description>
+            <inputs>
+              <channel name="VISUAL_UAS_UAVOP">
+                <layer name="NEW_NOTAM_ON_FLIGHT_PATH" predicate="eq">NEW_NOTAM_ON_FLIGHT_PATH</layer>
+              </channel>
+              <memory name="FLIGHT_STATE" predicate="eq">NEW_NOTAMS</memory>
+            </inputs>
+            <outputs>
+              <channel name="TACTILE_UAVOP_UAS">
+                <layer name="KEYBOARD">CHANGE_FLIGHT_PLAN</layer>
+                <layer name="MOUSE">CHANGE_FLIGHT_PLAN</layer>
+              </channel>
+              <memory name="FLIGHT_STATE">NORMAL</memory>
+            </outputs>
+            <endState>AVOID_NOTAM</endState>
+          </transition>
+          
+          <transition durationMin="1" durationMax="1" priority="10">
+            <description>NOTAM has been avoided, return to watching the UAVGUI</description>
+            <inputs>
+              <memory name="FLIGHT_STATE" predicate="eq">NORMAL</memory>
+            </inputs>
+            <outputs>
+              <channel name="TACTILE_UAVOP_UAS">
+                <layer name="KEYBOARD"><null/></layer>
+                <layer name="MOUSE"><null/></layer>
+              </channel>
+            </outputs>
+            <endState>MONITOR_UAVGUI</endState>
+          </transition>
+          
+        </state>
+                                   
+      </states>
+    </actor>
+  </actors>
+  
+  <!-- System Events -->
+  <events>
+    <event name="NEW_MISSION" count="1">
+      <transition>
+        <description> Start a new UAV mission</description>
+        <inputs>
+        </inputs>
+        <outputs>
+          <channel name="NEW_MISSION">NEW_MISSION</channel>
+        </outputs>
+      </transition>
+    </event>
+    
+    <event name="RADAR_COLLISION" count="1">
+      <transition>
+        <description>Potential collision on UAS radar</description>
+        <inputs>
+          <channel name="DATA_UAV_UAS" predicate="eq">FLYING</channel>
+          <channel name="RADAR_COLLISION" predicate="ne">RADAR_COLLISION</channel>
+        </inputs>
+        <outputs>
+          <channel name="RADAR_COLLISION">RADAR_COLLISION</channel>
+        </outputs>
+      </transition>
+    </event>
+    
+    <event name="FAA_COLLISION" count="1">
+      <transition>
+        <description>FAA radar shows a potential collision with a UAV</description>
+        <inputs>
+          <channel name="DATA_UAV_UAS" predicate="eq">FLYING</channel>
+          <channel name="FAA_COLLISION" predicate="ne">COLLISION</channel>
+          <channel name="RADAR_COLLISION" predicate="ne">RADAR_COLLISION</channel>
+        </inputs>
+        <outputs>
+          <channel name="FAA_COLLISION">COLLISION</channel>
+        </outputs>
+      </transition>
+    </event>
+  </events>
+</team>
+
