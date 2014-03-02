@@ -296,14 +296,6 @@
   timestamp = {2011.12.01}
 }
 
-@ARTICLE{goodrichcamera,
-  author = {Goodrich, M.A. and Morse, B.S. and Gerhardt, D. and Cooper, J.L.
-	and Quigley, M. and Humphrey, C. and Adams, J.A.},
-  title = {Camera-Equipped Mini {UAVs} for Wilderness Search Support},
-  owner = {TJ-ASUS},
-  timestamp = {2011.12.01}
-}
-
 @INPROCEEDINGS{humphrey2009human,
   author = {Humphrey, C.M. and Motter, S.R. and Adams, J.A. and Gonyea, M.},
   title = {A human eye like perspective for remote vision},
@@ -391,19 +383,6 @@
   pages = {25--40},
   number = {1},
   publisher = {SAGE Publications}
-}
-
-@INPROCEEDINGS{morse2010uav,
-  author = {Morse, B.S. and Engh, C.H. and Goodrich, M.A.},
-  title = {{UAV} video coverage quality maps and prioritized indexing for wilderness
-	search and rescue},
-  booktitle = {Proceeding of the 5th ACM/IEEE international conference on Human-robot
-	interaction},
-  year = {2010},
-  pages = {227--234},
-  organization = {ACM},
-  owner = {TJ-ASUS},
-  timestamp = {2011.12.01}
 }
 
 @INPROCEEDINGS{morse2008application,
@@ -546,6 +525,18 @@
   publisher = {American Psychological Association}
 }
 
+@INPROCEEDINGS{seah2005multi,
+  author = {Seah, Chin and Sierhuis, Maarten and Clancey, William J and Cognition,
+	M},
+  title = {Multi-agent modeling and simulation approach for design and analysis
+	of MER mission operations},
+  booktitle = {Proceedings of 2005 International conference on human-computer interface
+	advances for modeling and simulation (SIMCHI 2005)},
+  year = {2005},
+  pages = {73--78},
+  organization = {Citeseer}
+}
+
 @BOOK{setnicka1980,
   title = {Wilderness Search and Rescue},
   publisher = {Apalachian Mountain Club, Boston, MA},
@@ -553,15 +544,6 @@
   author = {Tim J. Setnicka},
   owner = {TJ-ASUS},
   timestamp = {2011.12.08}
-}
-
-@BOOK{WiSARBook,
-  title = {Wilderness Search and Rescue},
-  publisher = {Appalachian Mountain Club},
-  year = {1980},
-  author = {T. J. Setnicka},
-  date-added = {2013-05-16 21:39:41 +0000},
-  date-modified = {2013-05-16 21:39:41 +0000}
 }
 
 @INPROCEEDINGS{waharte2010supporting,

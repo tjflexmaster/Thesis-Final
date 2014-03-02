@@ -1,0 +1,18 @@
+<actors>
+  <actor name="UAVOP" showMetrics="true">
+    <inputchannels>
+      <channel>VISUAL_UAS_UAVOP</channel>
+      <channel>AUDIO_UAS_UAVOP</channel>
+      <channel>VISUAL_UAV_UAVOP</channel>
+      <channel>NEW_MISSION</channel>
+    </inputchannels>
+    <outputchannels>
+      <channel>TACTILE_UAVOP_UAS</channel>
+    </outputchannels>
+    <memory name="FLIGHT_PLAN_READY" dataType="Boolean">false</memory>
+    <startState>IDLE</startState>
+    <states>
+      <state name="IDLE" load="0"></state>
+    </states>
+  </actor>
+</actors>

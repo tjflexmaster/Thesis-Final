@@ -1,0 +1,6 @@
+<channels>
+  <channel name="VISUAL_UAS_UAVOP" type="VISUAL" source="UAS" target="UAVOP"/>
+  <channel name="TACTILE_UAVOP_UAS" type="TACTILE" source="UAVOP" target="UAS"/>
+</channels>
+
+<channel>VISUAL_UAS_UAVOP</channel>
