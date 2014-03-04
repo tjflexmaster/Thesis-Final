@@ -1,35 +1,5 @@
 \chapter{Refactoring the Modeling Framework}
 
-The most time consuming aspect of this work was the creation of the models.  By constructing the modeling framework as a set of Java interfaces and abstract classes it meant that the framework was almost entirely extensible in any direction.  We found this very refreshing during the first few development iterations of the framework and model.  We quickly began creating Actors, sub-Actors, Events, and more.  Each transition used an anonymous method containing logic for enabling the transition.  Eventually as our model grew in size and complexity the freedom of the Java language became a dual edged sword.  Our model was full of implicit declarations, inconsistencies, duplicated code, and anonymous methods split into multiple classes and methods.  It became extremely difficult to maintain the model let alone add to it.  This also made it difficult to rely on the metrics we were gathering as each Actor and Transition could implement metric reporting differently.  This chapter covers some of the changes which were made to the modeling framework to help address these issues.
-
-\section{XML Model Parser}
-
-To help reduce code duplication, reporting inconsistencies, and the number of anonymous methods as well as making the models easier to work with we decided to implement an XML model parser.  The model parser would allow the modeler define models with a minimal code footprint instead of being forced to implement a Java class with method overriding.  Generic XML classes for the Team, Actor, Transition, and Predicates were created.  This meant that every Actor and Transition within the system used the exact same code.  Instead of using an anonymous method for transitions the predicate class allows the modeler to define when a transition is enabled or disabled through the use of standard predicate logic.
-
-\subsection{Attaching to the Simulator}
-
-The actual XMLModelParser class parses the XML, see appendix~\ref{code}, which generates the generic XML team, actor, and transition objects.  Each of these generic XML classes lies separate from the core simulation code interacting through interfaces or by extending abstract classes.  This means that the addition of the XML parser does not prevent the use of custom Actors or Transition classes, use of a different model parser, or extension of our existing XML parser.  In fact our XML parser is meant to be extended to handle a more robust set of models.   As we developed a model using this XMLModelParser we had several occasions to extend its capabilities which we discuss later.  Unsurprisingly it was not difficult to extend the XML to accommodate the changes, often requiring less than 100 lines of code (not including changes to the model XML).
-
-\subsection{Validation}
-
-The use of an XMLModelParser also allowed us to add model validation.  Initial attempts at modeling WiSAR have shown us that model validation time increases dramatically as model complexity increases.  By restricting the model to XML, which is parsed into Java classes, we are able to catch many of the basic modeling errors such as typos, an incomplete DiTG, invalid transitions, and more.  The parser tells the modeler exactly where and what the problem was helping the modeler fix the problem.  While this does not prevent all modeling errors the time to model was drastically reduced.  In addition to the model parsing validation we added several layers of debugging output to help catch those errors not caught by the model parser.
-
-
-\section{Channel Layers}
-
-While constructing the UAS integrated into NAS model we noticed that a lot of state information was being passed simultaneously across the different channels.  The modeling framework only allowed a single object to be sent across a channel at a time.  While this had the potential to send as much data as needed across the channel we had no way of determining how much data was going across the channel.  With the creation of the XML model parser we limited channel objects to Strings, Integers, and Booleans.  This left us with very limited options for sending lots of data, such as a list of GUI alerts, over a channel.  
-
-On examining this problem in detail we decided that our channels were fundamentally flawed.  In earlier development cycles we had attempted to quantify the data being passed over a channel as we felt it may be important aspect of the workload.  Arriving at this problem again but from a different perspective we decided to add channel layers. See figure~\ref{fig:layers}.  Each channel can have any number of layers.  For example, a visual channel from one person to another has two channels, one which analyzes the face and another which analyzes the body.  Their may be more accurate channel layering for this scenario but these layers satisfy this example.  When communication occurs on this visual channel the recipient can examine as many layers as are needed for the given state.  If the person is in a distracted state then maybe they are not looking at the face layer which may in turn reduce the probability of comprehending the corresponding audio channel.   Another good example where this is useful is in GUIs.  Each item that a GUI represents to the user can be represented as a different layer.  The more layers a GUI presents to a user the more complex it becomes which potentially makes it more difficult for a person to analyze.
-
-As part of the metric analysis we can measure how many layers are being output and read on a particular channel and incorporate this into the workload measurements.  We believe that this concept of channel layers creates a more natural flow of information across the DiTG and it does so in a measurable fashion.  We also believe that these types of measurements will be more effective in improving human machine interfaces because it allows the specific outputs of those interfaces to be directly modeled in a way which directly affects the human workload measurements. 
-
-\begin{figure}[h]
-\begin{center}
-\includegraphics[width=5in]{layers.png}
-\caption{Communication Channel Layers}
-\label{fig:layers}
-\end{center}
-\end{figure}
 
 
 \section{Metric Improvements}

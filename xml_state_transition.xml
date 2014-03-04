@@ -1,0 +1,47 @@
+<state name="BUILD_FP" load="2">
+	<transition durationMin="900" durationMax="1200" priority="10">
+	  <description>Build a flight plan</description>
+	  <inputs>
+	    <memory name="FLIGHT_PLAN_READY" predicate="eq">false</memory>
+	    <channel name="VISUAL_UAS_UAVOP" predicate="ne">BLAH</channel>
+	  </inputs>
+	  <outputs>
+	    <channel name="TACTILE_UAVOP_UAS">
+	      <layer name="MOUSE" dataType="String">FLIGHT_PLAN</layer>
+	      <layer name="KEYBOARD" dataType="String">FLIGHT_PLAN</layer>
+	    </channel>
+	    <memory name="FLIGHT_PLAN_READY" dataType="Boolean">true</memory>
+	  </outputs>
+	  <endState>BUILD_FP</endState>
+	</transition>
+          
+  <transition durationMin="1" durationMax="1" priority="10">
+    <description>Click the Send flight plan button</description>
+    <inputs>
+      <memory name="FLIGHT_PLAN_READY" predicate="eq">true</memory>
+      <memory name="FAA_APPROVED" predicate="eq">false</memory>
+      <channel name="VISUAL_UAS_UAVOP" predicate="ne">BLAH</channel>
+    </inputs>
+    <outputs>
+      <channel name="TACTILE_UAVOP_UAS">
+        <layer name="MOUSE" dataType="String">SEND_FLIGHT_PLAN</layer>
+      </channel>
+    </outputs>
+    <endState>END_BUILD_FP</endState>
+  </transition>
+</state>
+        
+<state name="END_BUILD_FP" load="0">
+  <transition durationMin="1" durationMax="1" priority="1">
+    <description>Clear mouse and keyboard output layers</description>
+    <inputs>
+    </inputs>
+    <outputs>
+      <channel name="TACTILE_UAVOP_UAS">
+        <layer name="MOUSE"><null/></layer>
+        <layer name="KEYBOARD"><null/></layer>
+      </channel>
+    </outputs>
+    <endState>WAITING_ON_FAA</endState>
+  </transition>
+</state>

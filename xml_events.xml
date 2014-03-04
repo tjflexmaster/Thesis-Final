@@ -1,0 +1,12 @@
+<events>
+  <event name="NEW_MISSION" count="1">
+    <transition>
+      <description> Start a new UAV mission</description>
+      <inputs>
+      </inputs>
+      <outputs>
+        <channel name="NEW_MISSION">NEW_MISSION</channel>
+      </outputs>
+    </transition>
+  </event>
+</events>
