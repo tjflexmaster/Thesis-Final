@@ -1,6 +1,20 @@
-\chapter{Refactoring the Modeling Framework}
+\chapter{MAF Refactorings}
 
+\section{Channel Layers}
 
+While constructing the UAS integrated into NAS model we noticed that a lot of state information was being passed simultaneously across the different channels.  The modeling framework only allowed a single object to be sent across a channel at a time.  While this had the potential to send as much data as needed across the channel we had no way of determining how much data was going across the channel.  With the creation of the XML model extension we limited channel objects to Strings, Integers, and Booleans.  This left us with very limited options for sending lots of data, such as a list of GUI alerts, over a channel.  
+
+On examining this problem in detail we decided that our channels were fundamentally flawed.  In earlier development cycles we had attempted to quantify the data being passed over a channel as we felt it may be important aspect of the workload.  Arriving at this problem again but from a different perspective we decided to add channel layers. See figure~\ref{fig:layers}.  Each channel can have any number of layers.  For example, a visual channel from one person to another has two channels, one which analyzes the face and another which analyzes the body.  Their may be more accurate channel layering for this scenario but these layers satisfy this example.  When communication occurs on this visual channel the recipient can examine as many layers as are needed for the given state.  If the person is in a distracted state then maybe they are not looking at the face layer which may in turn reduce the probability of comprehending the corresponding audio channel.   Another good example where this is useful is in GUIs.  Each item that a GUI represents to the user can be represented as a different layer.  The more layers a GUI presents to a user the more complex it becomes which potentially makes it more difficult for a person to analyze.
+
+As part of the metric analysis we can measure how many layers are being output and read on a particular channel and incorporate this into the workload measurements.  We believe that this concept of channel layers creates a more natural flow of information across the DiTG and it does so in a measurable fashion.  We also believe that these types of measurements will be more effective in improving human machine interfaces because it allows the specific outputs of those interfaces to be directly modeled in a way which directly affects the human workload measurements. 
+
+\begin{figure}[h]
+\begin{center}
+\includegraphics[width=5in]{layers.png}
+\caption{Communication Channel Layers}
+\label{fig:layers}
+\end{center}
+\end{figure}
 
 \section{Metric Improvements}
 
