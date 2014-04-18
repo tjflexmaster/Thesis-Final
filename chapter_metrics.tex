@@ -34,7 +34,6 @@ W(T_{d}^{1}, T_{d}^{2}) = \left\{
   \end{array}
   \right.
   \label{eq:wickens_model}
-  \caption{Wickens' Computational Model}
 \end{equation}
 
 
@@ -71,7 +70,7 @@ For the Codes dimension (Spacial, Verbal) we check that the total number of audi
 
 
 \begin{equation}
-D_{Stage}(Inputs, Outputs) = \left\{ 
+D_{S}(Inputs, Outputs) = \left\{ 
   \begin{array}{l l}
     1, Inputs_{Sources} > 1 & \quad \text{Multiple Input Sources}\\
     1, Outputs_{Targets} > 1 & \quad \text{Multiple Output Targets}\\
@@ -79,11 +78,10 @@ D_{Stage}(Inputs, Outputs) = \left\{
   \end{array}
   \right.
   \label{eq:stage_dimension}
-  \caption{Stage Dimension}
 \end{equation}
 
 \begin{equation}
-D_{Modality}(Inputs, Outputs) = \left\{ 
+D_{M}(Inputs, Outputs) = \left\{ 
   \begin{array}{l l}
     1, Inputs_{Active}^{Audio/Visual} > 1 & \quad \text{Multiple Active Inputs}\\
     1, Outputs_{Active}^{Audio/Visual} > 1 & \quad \text{Multiple Active Outputs}\\
@@ -91,30 +89,27 @@ D_{Modality}(Inputs, Outputs) = \left\{
   \end{array}
   \right.
   \label{eq:modality_dimension}
-  \caption{Modality Dimension}
 \end{equation}
 
 \begin{equation}
-D_{Focus}(Outputs) = \left\{ 
+D_{F}(Outputs) = \left\{ 
   \begin{array}{l l}
     1, Outputs_{Target}^{Tactile} > 1 & \quad \text{Multiple Tactile Output Targets}\\
     0, otherwise
   \end{array}
   \right.
   \label{eq:focus_dimension}
-  \caption{Focus Dimension}
 \end{equation}
 
 \begin{equation}
-D_{Codes}(Inputs, Outputs) = \left\{ 
+D_{C}(Inputs, Outputs) = \left\{ 
   \begin{array}{l l}
-    1, Inputs_{Audio} + Outputs_{Audio} > 1 & \quad \text{Multiple Audio IOs}\\
-    1, INputs_{Video/Tactile} + Outputs_{Video/Tactile} > 1 & \quad \text{Multiple Video IOs}\\
+    1, Inputs^{Audio} + Outputs^{Audio} > 1\\
+    1, Inputs^{Visual/Tactile} + Outputs^{Visual/Tactile} > 1\\
     0, otherwise
   \end{array}
   \right.
   \label{eq:codes_dimension}
-  \caption{Codes Dimension}
 \end{equation}
 
 
@@ -122,14 +117,13 @@ D_{Codes}(Inputs, Outputs) = \left\{
 Using the adaptations mentioned in this section we are able to replicate Wickens' model within the Model Abstraction Framework by summing the Actor Load with the dimensional conflict values.  See equation~\ref{eq:adapted_wickens_model}.  As the model values are calculated differently than Wickens' model we will refer to this model as an adapted Wickens' model.  We propose to use this adapted Wickens' model as a baseline comparison for our metrics since the core elements of the adapted Wickens' model are fundamentally the same as those in the original.  
 
 \begin{equation}
-W(State_{ActorLoad}, D_{Stage}, D_{Modality}, D_{Focus}, D_{Codes}) = \left\{ 
+W(ActorLoad, D_{S}, D_{M}, D_{F}, D_{C}) = \left\{ 
   \begin{array}{l l}
-    State_{ActorLoad} \in \{0,1,2,3,4\} & \quad \text{Actor Load}\\
-    State_{ActorLoad} + D_{Stage} + D_{Modality} + D_{Focus} + D_{Codes} & \quad \text{Adapted Wickens' Model}
+    ActorLoad \in \{0,1,2,3,4\}\\
+    ActorLoad + D_{S} + D_{M} + D_{F} + D_{C}
   \end{array}
   \right.
   \label{eq:adapted_wickens_model}
-  \caption{Adapted Wickens' Model}
 \end{equation}
 
 
