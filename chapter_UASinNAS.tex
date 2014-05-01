@@ -115,6 +115,7 @@ When comparing the UAV Operator and ATC baseline workload, shown in figures \ref
 \begin{figure}[p]
 \begin{center}
 \includegraphics[width=\textwidth,height=\textheight]{UAS_in_NAS_no_events_UAVOP.png}
+\vspace{-25pt}
 \caption{UAV Operator: Baseline}
 \label{fig:uavop_baseline}
 \end{center}
@@ -123,6 +124,7 @@ When comparing the UAV Operator and ATC baseline workload, shown in figures \ref
 \begin{figure}[p]
 \begin{center}
 \includegraphics[width=\textwidth,height=\textheight]{UAS_in_NAS_no_events_ATC.png}
+\vspace{-25pt}
 \caption{ATC: Baseline}
 \label{fig:atc_baseline}
 \end{center}
@@ -133,6 +135,7 @@ We also see the effects of the UAV Operator and ATC relationship in the \textit{
 \begin{figure}[p]
 \begin{center}
 \includegraphics[width=\textwidth,height=\textheight]{UAS_in_NAS_manual_emergency_notam_UAVOP.png}
+\vspace{-25pt}
 \caption{UAV Operator: Manually Avoided Emergency NOTAM}
 \label{fig:uavop_manual}
 \end{center}
@@ -141,6 +144,7 @@ We also see the effects of the UAV Operator and ATC relationship in the \textit{
 \begin{figure}[p]
 \begin{center}
 \includegraphics[width=\textwidth,height=\textheight]{UAS_in_NAS_manual_emergency_notam_ATC.png}
+\vspace{-25pt}
 \caption{ATC: Manually Avoided Emergency NOTAM}
 \label{fig:atc_manual}
 \end{center}
@@ -153,6 +157,7 @@ At first glance the UAV Operator workload between the \textit{manual avoid} scen
 \begin{figure}[p]
 \begin{center}
 \includegraphics[width=\textwidth,height=\textheight]{UAS_in_NAS_auto_emergency_notam_UAVOP.png}
+\vspace{-25pt}
 \caption{UAV Operator: Auto Avoid Emergency NOTAM}
 \label{fig:uavop_auto}
 \end{center}
@@ -161,6 +166,7 @@ At first glance the UAV Operator workload between the \textit{manual avoid} scen
 \begin{figure}[p]
 \begin{center}
 \includegraphics[width=\textwidth,height=\textheight]{UAS_in_NAS_auto_emergency_notam_ATC.png}
+\vspace{-25pt}
 \caption{ATC: Auto Avoid Emergency NOTAM}
 \label{fig:atc_auto}
 \end{center}
@@ -171,6 +177,7 @@ To make this simple model a little more interesting we decided to add an interru
 \begin{figure}[p]
 \begin{center}
 \includegraphics[width=\textwidth,height=\textheight]{UAS_in_NAS_channel_conflict_UAVOP.png}
+\vspace{-25pt}
 \caption{UAVOP: Auto Avoid Emergency NOTAM w/ Interruption}
 \label{fig:uavop_conflict}
 \end{center}
@@ -180,7 +187,7 @@ While we are mostly pleased with the workload results there are a few anomalies 
 
 \subsection{Workload Analysis}
 
-To view the metric data more clearly we split the data into four different charts which represent the \textit{resource input workload}, \textit{resource output workload}, \textit{decision workload}, and \textit{overall workload}.  In the \textit{resource input workload} chart we get an idea of how many channels, layers, and memory objects the Actor is observing.  By comparing this with the \textit{resource output workload} we can see when the inputs occasioned a response from the Actor.  For the most part these charts are well behaved and follow the workload patterns which we know about.
+To view the metric data more clearly we split the data into four different charts that represent the \textit{resource input workload}, \textit{resource output workload}, \textit{decision workload}, and \textit{overall workload}.  In the \textit{resource input workload} chart we get an idea of how many channels, layers, and memory objects the Actor is observing.  By comparing this with the \textit{resource output workload} we can see when the inputs occasioned a response from the Actor.  For the most part these charts are well behaved and follow the workload patterns which we know about.
 
 On the other hand the \textit{decision workload} typically jumps all over the place.  While we believe the increase in \textit{decision workload} does in fact increase \textit{overall workload}, we are unsure how to weight this value in comparison with the \textit{resource workload} and \textit{temporal workload}.  This is something which needs to be verified through sensitivity and user studies in future work.
 
