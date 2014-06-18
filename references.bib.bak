@@ -1,6 +1,15 @@
 % This file was created with JabRef 2.7.2.
 % Encoding: Cp1252
 
+@MISC{aaaisymposium2014modeling,
+  author = {Goodrich et al.},
+  title = {AAAI 2014 Symposium: Modeling human-machine systems: challenges for
+	formal verification},
+  month = mar,
+  year = {2014},
+  url = {http://faculty.cs.byu.edu/~mike/mikeg/WORKSHOP/index.html}
+}
+
 @MISC{wonderServer,
   author = {Abbott, J. and Ogden, S. and Green, J. and Roscheck, M. and Clark
 	S.},
@@ -9,6 +18,20 @@
   year = {2011},
   owner = {TJ-ASUS},
   timestamp = {2012.02.03}
+}
+
+@ARTICLE{adams2009cognitive,
+  author = {Adams, Julie A and Humphrey, Curtis M and Goodrich, Michael A and
+	Cooper, Joseph L and Morse, Bryan S and Engh, Cameron and Rasmussen,
+	Nathan},
+  title = {Cognitive task analysis for developing unmanned aerial vehicle wilderness
+	search support},
+  journal = {Journal of cognitive engineering and decision making},
+  year = {2009},
+  volume = {3},
+  pages = {1--26},
+  number = {1},
+  publisher = {SAGE Publications}
 }
 
 @ARTICLE{adams2007camera,
@@ -24,31 +47,26 @@
   timestamp = {2011.12.01}
 }
 
-@ARTICLE{adams2009cognitive,
-  author = {Adams, J.A. and Humphrey, C.M. and Goodrich, M.A. and Cooper, J.L.
-	and Morse, B.S. and Engh, C. and Rasmussen, N.},
-  title = {Cognitive task analysis for developing unmanned aerial vehicle wilderness
-	search support},
-  journal = {Journal of cognitive engineering and decision making},
-  year = {2009},
-  volume = {3},
-  pages = {1},
-  number = {1},
-  owner = {TJ-ASUS},
-  publisher = {SAGE Publications},
-  timestamp = {2011.12.01}
-}
-
 @INPROCEEDINGS{almurib2011control,
   author = {Almurib, H.A.F. and Nathan, P.T. and Kumar, T.N.},
   title = {Control and path planning of quadrotor aerial vehicles for search
 	and rescue},
-  booktitle = {SICE Annual Conference (SICE), 2011 Proceedings of},
+  booktitle = {SICE Annual Conference (SICE), Proceedings of},
   year = {2011},
   pages = {700--705},
-  organization = {IEEE},
-  owner = {TJ-ASUS},
-  timestamp = {2011.12.01}
+  address = {Tokyo, Japan},
+  organization = {IEEE}
+}
+
+@ARTICLE{anderson1996act,
+  author = {Anderson, John R},
+  title = {ACT: A simple theory of complex cognition.},
+  journal = {American Psychologist},
+  year = {1996},
+  volume = {51},
+  pages = {355},
+  number = {4},
+  publisher = {American Psychological Association}
 }
 
 @ARTICLE{anderson2004integrated,
@@ -72,33 +90,42 @@
 	on},
   year = {2011},
   pages = {1817--1824},
+  address = {Anchorage, Alaska},
   organization = {IEEE}
 }
 
-@PROCEEDINGS{bolton2013evaluating,
-  title = {Evaluating Human-human Communication Protocols with Miscommunication
-	Generation and Model Checking},
-  year = {2013},
-  author = {Bolton, M. and Bass, E.}
-}
-
-@PROCEEDINGS{bolton2009enhanced,
-  title = {Enhanced operator function model: a generic human task behavior modeling
-	language},
-  year = {2009},
-  series = {SMC'09},
-  publisher = {IEEE Press},
-  author = {Bolton, M. and Bass, E.},
-  booktitle = {Proceedings of the 2009 IEEE international conference on Systems,
-	Man and Cybernetics},
-  pages = {2904--2911}
-}
-
-@PROCEEDINGS{bolton2013litreview,
+@INPROCEEDINGS{bolton2013litreview,
+  author = {Bolton, M. Bass, E. and Siminiceanu R.},
   title = {Using Formal Verification to Evaluate Human-Automation Interaction:
 	A Review},
+  booktitle = {Systems, Man and Cybernetics: Systems, IEEE Transactions on
+	
+	},
   year = {2013},
-  author = {Bolton, M. Bass, E. and Siminiceanu R.}
+  address = {Manchester, England},
+  organization = {IEEE}
+}
+
+@INCOLLECTION{bolton2013evaluating,
+  author = {Bolton, Matthew L and Bass, Ellen J},
+  title = {Evaluating Human-Human Communication Protocols with Miscommunication
+	Generation and Model Checking},
+  booktitle = {NASA Formal Methods},
+  publisher = {Springer},
+  year = {2013},
+  pages = {48--62}
+}
+
+@INPROCEEDINGS{bolton2009enhanced,
+  author = {Bolton, Matthew L and Bass, Ellen J},
+  title = {Enhanced operator function model: A generic human task behavior modeling
+	language},
+  booktitle = {Systems, Man and Cybernetics, 2009. SMC 2009. IEEE International
+	Conference on},
+  year = {2009},
+  pages = {2904--2911},
+  address = {San Anotonio, Texas},
+  organization = {IEEE}
 }
 
 @ARTICLE{Box1976,
@@ -111,15 +138,6 @@
   number = {356},
   date-added = {2013-05-17 17:39:27 +0000},
   date-modified = {2013-05-17 17:41:13 +0000}
-}
-
-@UNPUBLISHED{thornton2011detection,
-  author = {Bryan S. Morse, Daniel Thornton, Michael A. Goodrich},
-  title = {Color Anomaly Detection and Suggestion for Wilderness Search and
-	Rescue},
-  note = {2011},
-  owner = {TJ-ASUS},
-  timestamp = {2012.01.24}
 }
 
 @ARTICLE{casper2003human,
@@ -137,31 +155,40 @@
   timestamp = {2012.01.04}
 }
 
+@ARTICLE{clancey1998brahms,
+  author = {Clancey, William J and Sachs, Patricia and Sierhuis, Maarten and
+	HOOF, RON VAN},
+  title = {Brahms: Simulating practice for work systems design},
+  journal = {International Journal of Human-Computer Studies},
+  year = {1998},
+  volume = {49},
+  pages = {831--865},
+  number = {6},
+  publisher = {Elsevier}
+}
+
 @MISC{uavCode,
   author = {Clark, S.},
   title = {Pilot {GUI} and Hardware Plugins, {WonderServer} work in progress},
   year = {2011},
-  owner = {TJ-ASUS},
-  timestamp = {2012.02.03}
+  owner = {TJ-ASUS}
 }
 
 @PHDTHESIS{cluff2009unified,
   author = {Cluff, S.T.},
   title = {A Unified Approach to GPU-Accelerated Aerial Video Enhancement Techniques},
   school = {Brigham Young University},
-  year = {2009},
-  owner = {TJ-ASUS},
-  timestamp = {2011.12.01}
+  year = {2009}
 }
 
-@TECHREPORT{cooper2007supporting,
+@MASTERSTHESIS{cooper2007supporting,
   author = {Cooper, J.L.},
   title = {Supporting flight control for {UAV-assisted} wilderness search and
 	rescue through human centered interface design},
-  institution = {DTIC Document},
+  school = {Brigham Young University},
   year = {2007},
-  owner = {TJ-ASUS},
-  timestamp = {2011.12.01}
+  institution = {DTIC Document},
+  owner = {TJ-ASUS}
 }
 
 @INPROCEEDINGS{cooper2008towards,
@@ -172,22 +199,19 @@
 	robot interaction},
   year = {2008},
   pages = {351--358},
-  organization = {ACM},
-  owner = {TJ-ASUS},
-  timestamp = {2011.12.01}
+  address = {Amsterdam, Netherlands},
+  organization = {ACM}
 }
 
 @INPROCEEDINGS{cooper2006integrating,
-  author = {Cooper, J.L. and Goodrich, M.A.},
+  author = {Cooper, Joseph L and Goodrich, Michael A},
   title = {Integrating critical interface elements for intuitive single-display
-	aviation control of {UAVs}},
-  booktitle = {Proceedings of SPIE},
+	aviation control of UAVs},
+  booktitle = {Defense and Security Symposium},
   year = {2006},
-  volume = {6226},
-  pages = {62260B},
-  organization = {Citeseer},
-  owner = {TJ-ASUS},
-  timestamp = {2011.12.01}
+  pages = {62260B--62260B},
+  address = {Orlando, Florida},
+  organization = {International Society for Optics and Photonics}
 }
 
 @INBOOK{Cummings2007,
@@ -219,16 +243,18 @@
   title = {A see-ability metric to improve mini unmanned aerial vehicle operator
 	awareness using video georegistered to terrain models},
   school = {Brigham Young University},
-  year = {2008},
-  owner = {TJ-ASUS},
-  timestamp = {2011.12.01}
+  year = {2008}
 }
 
-@PROCEEDINGS{gledhill2013modelinguas,
+@INPROCEEDINGS{gledhill2013modeling,
+  author = {Gledhill, TJ and Mercer, Eric and Goodrich, Michael A},
   title = {Modeling UASs for Role Fusion and Human Machine Interface Optimization},
+  booktitle = {Systems, Man, and Cybernetics (SMC), 2013 IEEE International Conference
+	on},
   year = {2013},
-  series = {SMC'13},
-  author = {Gledhill, TJ and Mercer, Eric and Goodrich Michael A.}
+  pages = {1929--1937},
+  address = {Manchester, England},
+  organization = {IEEE}
 }
 
 @BOOK{gonzalezwoodsDIP,
@@ -247,9 +273,7 @@
   publisher = {Ashgate Publishing},
   year = {2010},
   editor = {M. Barnes and F. Jentsch},
-  address = {Surrey, England},
-  date-added = {2013-05-16 21:18:26 +0000},
-  date-modified = {2013-05-16 21:18:26 +0000}
+  address = {Surrey, England}
 }
 
 @INPROCEEDINGS{goodrich2007using,
@@ -261,9 +285,8 @@
 	Workshop on},
   year = {2007},
   pages = {1--6},
-  organization = {IEEE},
-  owner = {TJ-ASUS},
-  timestamp = {2011.12.01}
+  address = {Rome, Italy},
+  organization = {IEEE}
 }
 
 @ARTICLE{goodrich2009towards,
@@ -303,14 +326,14 @@
 	Conference on},
   year = {2009},
   pages = {1650--1655},
-  organization = {IEEE},
-  owner = {TJ-ASUS},
-  timestamp = {2011.12.01}
+  address = {San Antonio, Texas},
+  organization = {IEEE}
 }
 
 @PHDTHESIS{humphrey2009information,
   author = {Humphrey, Curtis Michael},
   title = {Information abstraction visualization for human-robot interaction},
+  school = {Brigham Young University},
   year = {2009}
 }
 
@@ -318,6 +341,7 @@
   title = {A Synergistic and Extensible Framework for Multi-Agent System Verification},
   year = {2013},
   series = {AAMAS},
+  address = {Saint Paul, Minnesota},
   author = {Hunter, J. and Raimondi, F. and Rungta, N. and Stocker, R.}
 }
 
@@ -331,16 +355,20 @@
   timestamp = {2011.12.19}
 }
 
+@BOOK{laird2012soar,
+  title = {The Soar cognitive architecture},
+  publisher = {MIT Press},
+  year = {2012},
+  author = {Laird, John}
+}
+
 @ARTICLE{lin2009bayesian,
   author = {Lin, L. and Goodrich, M.A.},
   title = {A Bayesian approach to modeling lost person behaviors based on terrain
 	features in Wilderness Search and Rescue},
   journal = {Computational \& Mathematical Organization Theory},
   year = {2009},
-  pages = {1--24},
-  owner = {TJ-ASUS},
-  publisher = {Springer},
-  timestamp = {2011.12.01}
+  pages = {1--24}
 }
 
 @INPROCEEDINGS{lin2009uav,
@@ -350,9 +378,8 @@
 	Conference on},
   year = {2009},
   pages = {709--714},
-  organization = {IEEE},
-  owner = {TJ-ASUS},
-  timestamp = {2011.12.01}
+  address = {St. Louis, Missouri},
+  organization = {IEEE}
 }
 
 @INPROCEEDINGS{lin2010supporting,
@@ -361,8 +388,8 @@
 	Autonomy and Information at the Right Time and the Right Place},
   booktitle = {Twenty-Fourth AAAI Conference on Artificial Intelligence},
   year = {2010},
-  owner = {TJ-ASUS},
-  timestamp = {2011.12.01}
+  address = {Atlanta, Georgia},
+  organization = {AAAI}
 }
 
 @INPROCEEDINGS{MitchellCummings2005,
@@ -370,8 +397,7 @@
   title = {Management of Multiple Dynamic Human Supervisory Control Tasks},
   booktitle = {10th International Command and Control Research And Technology Symposium},
   year = {2005},
-  date-added = {2013-05-16 21:17:29 +0000},
-  date-modified = {2013-05-16 21:17:29 +0000}
+  address = {Washington DC}
 }
 
 @ARTICLE{moray1982subjective,
@@ -390,13 +416,11 @@
 	Rasmussen, N. and Thornton, D. and Eggett, D.},
   title = {Application and evaluation of spatiotemporal enhancement of live
 	aerial video using temporally local mosaics},
-  booktitle = {Computer Vision and Pattern Recognition, 2008. CVPR 2008. IEEE Conference
-	on},
+  booktitle = {Computer Vision and Pattern Recognition, IEEE Conference on},
   year = {2008},
   pages = {1--8},
-  organization = {IEEE},
-  owner = {TJ-ASUS},
-  timestamp = {2011.12.01}
+  address = {Anchorage, Alaska},
+  organization = {IEEE}
 }
 
 @INPROCEEDINGS{morse2010coverage,
@@ -406,20 +430,21 @@
   booktitle = {Proceedings of the 5th ACM/IEEE international conference on Human-robot
 	interaction},
   year = {2010},
-  series = {HRI '10},
   pages = {227--234},
-  address = {New York, NY, USA},
-  publisher = {ACM},
-  acmid = {1734548},
-  doi = {http://doi.acm.org/10.1145/1734454.1734548},
-  isbn = {978-1-4244-4893-7},
-  keywords = {coverage quality maps, unmanned aerial vehicles, video indexing, wilderness
-	search and rescue},
-  location = {Osaka, Japan},
-  numpages = {8},
-  owner = {TJ-ASUS},
-  timestamp = {2014.02.17},
-  url = {http://doi.acm.org/10.1145/1734454.1734548}
+  address = {Osaka, Japan},
+  organization = {ACM}
+}
+
+@INPROCEEDINGS{morse2012color,
+  author = {Morse, Bryan S and Thornton, Daniel and Goodrich, Michael A},
+  title = {Color anomaly detection and suggestion for wilderness search and
+	rescue},
+  booktitle = {Proceedings of the seventh annual ACM/IEEE international conference
+	on Human-Robot Interaction},
+  year = {2012},
+  pages = {455--462},
+  address = {Boston, Massachusetts},
+  organization = {ACM}
 }
 
 @MISC{MurphyStoverPrattGriffin2006,
@@ -428,9 +453,7 @@
 	Unmanned Aerial Vehicle at Hurrican {Wilma}},
   howpublished = {IROS 2006 Video Session},
   month = {October},
-  year = {2006},
-  date-added = {2013-05-16 21:00:46 +0000},
-  date-modified = {2013-05-16 21:00:46 +0000}
+  year = {2006}
 }
 
 @INCOLLECTION{MurphyBurke2010,
@@ -460,9 +483,8 @@
   booktitle = {Proceedings of the 6th international conference on Human-robot interaction},
   year = {2011},
   pages = {225--226},
-  organization = {ACM},
-  owner = {TJ-ASUS},
-  timestamp = {2011.12.01}
+  address = {Lausanne, Switzerland},
+  organization = {ACM}
 }
 
 @INPROCEEDINGS{quigley2004semi,
@@ -473,9 +495,8 @@
   year = {2004},
   volume = {3},
   pages = {2457--2462},
-  organization = {IEEE},
-  owner = {TJ-ASUS},
-  timestamp = {2011.12.01}
+  address = {Sendai, Japan},
+  organization = {IEEE}
 }
 
 @INPROCEEDINGS{quigley2005target,
@@ -487,9 +508,8 @@
 	IEEE International Conference on},
   year = {2005},
   pages = {2600--2605},
-  organization = {IEEE},
-  owner = {TJ-ASUS},
-  timestamp = {2011.12.01}
+  address = {Barcelona, Spain},
+  organization = {IEEE}
 }
 
 @INPROCEEDINGS{rasmussen2008enhancement,
@@ -500,18 +520,21 @@
 	on},
   year = {2008},
   pages = {1356--1359},
-  organization = {IEEE},
-  owner = {TJ-ASUS},
-  timestamp = {2011.12.01}
+  address = {San Diego, California},
+  organization = {IEEE}
 }
 
-@PROCEEDINGS{rungta2013aviation,
-  title = {Aviation Safety: Modeling and Analyzing Complex Interactions between
-	Humans and Automated Systems},
+@INPROCEEDINGS{rungta2013aviation,
+  author = {Rungta, Neha and Brat, Guillaume and Clancey, William J and Linde,
+	Charlotte and Raimondi, Franco and Seah, Chin and Shafto, Michael},
+  title = {Aviation safety: modeling and analyzing complex interactions between
+	humans and automated systems},
+  booktitle = {Proceedings of the 3rd International Conference on Application and
+	Theory of Automation in Command and Control Systems},
   year = {2013},
-  series = {ATACCS},
-  author = {Rungta, N. and Brat, G. and Clancey, W. and Linde, C. and Raimondi,
-	F. Chin S. and Shafto, M.}
+  pages = {27--37},
+  address = {Naples, Italy},
+  organization = {ACM}
 }
 
 @ARTICLE{salvucci2008threaded,
@@ -525,16 +548,25 @@
   publisher = {American Psychological Association}
 }
 
+@INPROCEEDINGS{schermerhorn2006diarc,
+  author = {Schermerhorn, Paul W and Kramer, James F},
+  title = {DIARC: A Testbed for Natural Human-Robot Interaction.},
+  booktitle = {Artificial Intelligence, Twenty-First National Conference on},
+  year = {2006},
+  address = {Boston, Massachusetts},
+  organization = {AAAI}
+}
+
 @INPROCEEDINGS{seah2005multi,
   author = {Seah, Chin and Sierhuis, Maarten and Clancey, William J and Cognition,
 	M},
   title = {Multi-agent modeling and simulation approach for design and analysis
 	of MER mission operations},
-  booktitle = {Proceedings of 2005 International conference on human-computer interface
-	advances for modeling and simulation (SIMCHI 2005)},
+  booktitle = {Human-Computer Interface Advances for Modeling and Simulation (SIMCHI
+	2005), Proceedings of 2005 International conference on},
   year = {2005},
   pages = {73--78},
-  organization = {Citeseer}
+  address = {New Orleans, Louisiana}
 }
 
 @BOOK{setnicka1980,
@@ -553,22 +585,19 @@
 	on},
   year = {2010},
   pages = {142--147},
-  organization = {IEEE},
-  owner = {TJ-ASUS},
-  timestamp = {2011.12.01}
+  address = {Canterbury, United Kingdom},
+  organization = {IEEE}
 }
 
 @INPROCEEDINGS{waharte2009coordinated,
   author = {Waharte, S. and Trigoni, N. and Julier, S.},
   title = {Coordinated search with a swarm of {UAVs}},
-  booktitle = {Sensor, Mesh and Ad Hoc Communications and Networks Workshops, 2009.
-	SECON Workshops' 09. 6th Annual IEEE Communications Society Conference
-	on},
+  booktitle = {Sensor, Mesh and Ad Hoc Communications and Networks Workshops, 6th
+	Annual IEEE Communications Society Conference on},
   year = {2009},
   pages = {1--3},
-  organization = {IEEE},
-  owner = {TJ-ASUS},
-  timestamp = {2011.12.01}
+  address = {Rome, Italy},
+  organization = {IEEE}
 }
 
 @ARTICLE{wickens2002multiple,
