@@ -20,7 +20,7 @@ We express an Actor as a Directed Role Graph (DiRG).  A DiRG represents how an A
 
 
 \subsection{Channels}
-We define these inter-Actor connections as Channels.  A channel is a uni-directional communication medium which allows an Actor to send information to another Actor.  Each Channel is composed of a source Actor, a target Actor, and a type.  The source Actor sends information as {\em output}, the target Actor receives the information as {\em input}, and the type specifies which communication medium is being used.  When describing the metrics we sometimes refer to the Channel source as the input source.  In the case of Alice and Bob we use audio, visual, and manual Channels\cite{wickens2002multiple}, the case study in chapter \ref{ch:UASinNAS} also uses a Data channel that represents network communication.  
+We define these inter-Actor connections as Channels.  A channel is a uni-directional communication medium which allows an Actor to send information to another Actor.  Each Channel is composed of a source Actor, a target Actor, and a type.  The source Actor sends information as {\em output}, the target Actor receives the information as {\em input}, and the type specifies which communication medium is being used.  When describing the metrics we sometimes refer to the Channel source as the input source and the Channel target as the output target.  In the case of Alice and Bob we use audio, visual, and manual Channels\cite{wickens2002multiple}, the case study in chapter \ref{ch:UASinNAS} also uses a Data channel that represents network communication.  
 
 We also designate that each Channel can represent multiple layers of communication.  To show this we will use the visual channel from Alice to Bob as an example.  We can express Alice's {\em output}, Bob's {\em input}, as two different layers on the visual channel, one for Alice's body language, and another for her facial expressions.  This allows us to explicitly set how much data is being sent over the channel, it also allows us to express multiple visual inputs for Bob without creating a {\em channel conflict}.  A {\em channel conflict} occurs when an Actor is receiving input from two or more channels of the same type.  In our example scenario Alice is listening to her cell phone which uses an audio channel.  At the same time Bob is talking to Alice on a different audio channel.  Because Alice is receiving {\em input} on multiple audio channels she has an audio channel conflict.  
 
@@ -60,7 +60,7 @@ Now that we have a basic understanding of the data that the simulator has access
 
 
 \section{Adapted Wickens' Metric}
-Since we are interested in metrics that reveal human workload we have chosen to replicate Wickens' computational model~\cite{wickens2002multiple}, shown in equations ~\ref{eq:resource_demand}-\ref{eq:wickens_model}, using data gathered from the Model Abstraction Framework.  While this metric is a measure of resource demand and overlap, its close connection to human workload makes it an good baseline to compare against our own metrics.  
+Since we are interested in metrics that reveal human workload we have chosen to replicate Wickens' computational model~\cite{wickens2002multiple}, shown in equations ~\ref{eq:resource_demand}-\ref{eq:wickens_model}, using data gathered from the Model Abstraction Framework.  Wickens' model is a measure of resource demand and overlap that has been shown to predict performance degradation once resource overload is reached, making it a good baseline metric for evaluating consistency with known high workload events and for comparison with the new metrics presented later in the chapter.  
 
 Wickens' computational model is based on the concept of tasks, where a task is some arbitrary unit of activity.  Wickens' model calculates the resource interference between two tasks, a value that is closely related to mental workload~\cite{wickens2002multiple}.  The problem with using this computational model as a metric within the Model Abstraction Framework is the difference in the modeling paradigms.  In this work we abstract the notion of a task, relying instead on states and transitions to infer activity.  The challenge is to apply the task-based abstraction of Wickens' model to the state/transition based abstraction of the Model Abstraction Framework.
 
@@ -90,8 +90,9 @@ For resource conflict two tasks are considered to have conflicting resources whe
   R_{C}(T^{1}, T^{2}) = \sum_{dimension=1}^{4} \left\{
     \begin{array}{l l}
       1 & T_{dimension}^{1} = T_{dimension}^{2} \\
-      0 & otherwise & \\
+      0 & otherwise \\
     \end{array}
+    \right.
   \label{eq:resource_conflict}
 \end{equation}
 
@@ -100,20 +101,20 @@ For resource conflict two tasks are considered to have conflicting resources whe
 To mimic resource demand within the Model Abstraction Framework we introduce the notion of Actor Load.  Actor Load represents an abstraction of the load an Actor is under while in a specific state.  Similar to resource demand in Wickens' model, Actor Load is a subjective value assigned by the modeler to each state in the system.  To make this value more intuitive and simple we have abstracted it into an integer value ranging from 0-4.  An Actor Load of 0 represents little to no load on the actor.  These are automated or transitional states where the Actor is idle or has minimal contact with the system.  An Actor Load of 4 represents simultaneously performing multiple high difficulty tasks.  These are states where an Actor is pushed to the limit of their cognitive capabilities. Any value between 0 and 4 is some combination of task difficulty and the number of tasks being performed.
 
 \subsection{Determining Dimensional Conflicts}
-To calculate the dimensionality of resource conflicts we need a way to determine when multiple tasks are being performed.  Since the Model Abstraction Framework does not define specific tasks we must find another method to approximate when multiple tasks are being performed.  We accomplish this by making the assumption that if an Actor has input from multiple sources, input sources represent the Channel source, then multiple tasks are being performed.
+To calculate the dimensionality of resource conflicts we need a way to determine when multiple tasks are being performed.  Since the Model Abstraction Framework does not define specific tasks we must find another method to approximate when multiple tasks are being performed.  We accomplish this by making the assumption that if an Actor has input from multiple sources then multiple tasks are being performed.
 
 
 With this assumption we are ready to calculate dimensional conflicts as illustrated in Figure~\ref{fig:multipleresourcetheory}.
-For the Stage dimension (perception, cognition, response) we check to see if there are multiple sources of input or multiple targets for output.  If there are then we increment the dimensionality as shown in equation~\ref{eq:stage_dimension}.  
+For the Stages dimension (perception, cognition, response) we check to see if there are multiple sources of {\em active} input or multiple output targets, not including memory inputs and outputs.  If multiple sources or targets exist then the stage dimensionality ($D_{Stage}$) is set to 1 as shown in equation~\ref{eq:stage_dimension}.  
 
-For the Modality dimension (Audio, Visual) we check if there is more than a single active channel, input or output, of type audio or visual.  If there is then we increment the dimensionality as shown in equation~\ref{eq:modality_dimension}.
+For the Modalities dimension (Audio, Visual) we check if there is more than a single {\em active} channel, input or output, for a specific channel type.  If there is then the modality dimensionality ($D_{Modality}$) is set to 1 as shown in equation~\ref{eq:modality_dimension}.
 
-For the Codes dimension (Spatial, Verbal) we check that the total number of audio inputs and outputs is greater than 1 or that the total number of visual inputs, visual outputs, and manual outputs is greater than 1.  If either value is greater than 1 then we increment the dimensionality as shown in equation~\ref{eq:codes_dimension}.
+For the Codes dimension (Spatial, Verbal) we check that the total number of audio inputs and outputs is greater than 1 or that the total number of visual inputs, visual outputs, and manual outputs is greater than 1.  Since we do not specify different types of audio output we assume that all audio is verbal, likewise we assume that all visual/manual input and output is spacial.  If either check succeeds we set the codes dimensionality ($D_{Codes}$) to 1 as shown in equation~\ref{eq:codes_dimension}.
 
-For the Visual Processing dimension we check if there is more than one target for manual outputs, if there are then we increment the dimensionality as shown in equation~\ref{eq:focus_dimension}.  We do not check inputs as we have no way of distinguishing if a visual channel has focus.  This may need to be addressed in future work. 
+For the Visual Processing dimension we check if there is more than one target for manual outputs.  We do not check inputs as we have no way of distinguishing if a visual channel is focal or ambient.  Instead we assume that manual outputs require visual focus allowing us to determine if visual processing is split between multiple tasks.  If we have manual output to multiple targets then we set the visual processing dimensionality ($D_{Visual Processing}$) to 1 as shown in equation~\ref{eq:focus_dimension}.
 
 \begin{equation}
-D_{S}(Inputs, Outputs) = \left\{ 
+D_{Stages}(Inputs, Outputs) = \left\{ 
   \begin{array}{l l}
     1, Inputs_{Sources} > 1 & \quad \text{Multiple Input Sources}\\
     1, Outputs_{Targets} > 1 & \quad \text{Multiple Output Targets}\\
@@ -124,7 +125,7 @@ D_{S}(Inputs, Outputs) = \left\{
 \end{equation}
 
 \begin{equation}
-D_{M}(Inputs, Outputs) = \left\{ 
+D_{Modalities}(Inputs, Outputs) = \left\{ 
   \begin{array}{l l}
     1, Inputs_{Active}^{Audio/Visual} > 1 & \quad \text{Multiple Active Inputs}\\
     1, Outputs_{Active}^{Audio/Visual} > 1 & \quad \text{Multiple Active Outputs}\\
@@ -135,17 +136,7 @@ D_{M}(Inputs, Outputs) = \left\{
 \end{equation}
 
 \begin{equation}
-D_{F}(Outputs) = \left\{ 
-  \begin{array}{l l}
-    1, Outputs_{Target}^{Manual} > 1 & \quad \text{Multiple Manual Output Targets}\\
-    0, otherwise
-  \end{array}
-  \right.
-  \label{eq:focus_dimension}
-\end{equation}
-
-\begin{equation}
-D_{C}(Inputs, Outputs) = \left\{ 
+D_{Codes}(Inputs, Outputs) = \left\{ 
   \begin{array}{l l}
     1, Inputs^{Audio} + Outputs^{Audio} > 1\\
     1, Inputs^{Visual/Manual} + Outputs^{Visual/Manual} > 1\\
@@ -155,25 +146,58 @@ D_{C}(Inputs, Outputs) = \left\{
   \label{eq:codes_dimension}
 \end{equation}
 
-
-\subsection{Adapted Wickens' Model}
-Using the adaptations mentioned in this section we are able to replicate Wickens' model within the Model Abstraction Framework by summing the Actor Load with the dimensional conflict values.  Equation~\ref{eq:adapted_wickens_model}.  As the model values are calculated differently than Wickens' model we will refer to this model as an adapted Wickens' model.  We propose to use this adapted Wickens' model as a baseline comparison for our metrics since the core elements of the adapted Wickens' model are fundamentally the same as those in the original.  
-
 \begin{equation}
-W(ActorLoad, D_{S}, D_{M}, D_{F}, D_{C}) = \left\{ 
+D_{Visual Processing}(Outputs) = \left\{ 
   \begin{array}{l l}
-    ActorLoad \in \{0,1,2,3,4\}\\
-    ActorLoad + D_{S} + D_{M} + D_{F} + D_{C}
+    1, Outputs_{Target}^{Manual} > 1 & \quad \text{Multiple Manual Output Targets}\\
+    0, otherwise
   \end{array}
   \right.
+  \label{eq:focus_dimension}
+\end{equation}
+
+
+
+\subsection{Adapted Wickens' Model}
+Using the Actor Load and the adapted dimensionality conflicts we are now in a position to replicate Wickens' model within the Model Abstraction Framework.  As the model values are calculated differently than Wickens' model we will refer to this model as an adapted Wickens' model ($W_{Adapted}$).  The equation, shown in equation \ref{eq:adapted_wickens_model}, is as follows: given an actors State and the set of inputs and outputs for transitions in that State we can obtain $W_{Adapted}$ by adding the Actor Load of the state to the sum of the four dimensionality values, which must be within a range of 0-4.  This gives us a possible $W_{Adapted}$ ranging from 0-8, just like the original Wickens' model.
+
+\begin{equation}
+  W_{Adapted}(State, Inputs, Outputs) = State_{Actor Load} + D_{Stages} + D_{Modalities} + D_{Codes} + D_{Visual Processing}
   \label{eq:adapted_wickens_model}
 \end{equation}
 
-\section{Resource Workload}
-Describe what it is, point reader towards FVHMS paper.  Present the metric itself with the equation.
-Intuition behind it?
+Now that we have a baseline metric adapted from the related work to use as a baseline for consistency it is now time to describe two new workload metrics.
 
-\section{Decision Workload}
+\section{Resource Workload Metric}
+The resource workload metric attempts to measure the resource load an Actor is experiencing via inter-actor communications and memory access for each time step of the simulation.  The concept is based off of the resource workload category presented by Jared et al. \cite{FVHMS}.  For example, when Bob is talking to Alice she is processing input on multiple audio channels while also accessing any relevant memory.  Once Alice is alone again her resource workload will have decreased as she is only processing a single audio channel.
+
+The resource workload metric is composed of three sub-metrics: channel conflicts, resource load, and Actor Load.  Channel conflicts occur whenever more than one active channel shares a type, such as an Actor receiving input on multiple audio channels.  Since we currently only allow visual and audio input for human Actors this value ranges from 0 to 2.  Resource load attempts to quantify the load being placed on the Actor's resources.  We break the resource load into two parts, input and output, the final result being the sum of both parts.  Each part is calculated by adding the number of active channels, number of layers read, number of memory objects read, and the number of active channel types.  Actor Load is the same metric that is used in the adapted Wickens' metric and is included here because it is a direct reflection of the modelers belief of what the resource load is during this state.
+
+To calculate the resource workload metric inputs are gathered from each transition that is part of the current state.  The outputs are collected from the active transition.  We also use the Actor Load from the current state.
+
+\begin{equation}
+  ChannelConflicts(Inputs) = \sum_{channelType=1}^{2} \left\{
+    \begin{array}{l l}
+      1 & \sum Inputs^{channelType} \in Inputs > 1 \\
+      0 & otherwise \\
+    \end{array}
+    \right.
+  \label{eq:channel_conflict}
+\end{equation}
+
+\begin{equation}
+  ResourceLoad(IO) = \sum IO_{Active} + \sum IO_{LayersRead} + IO_{MemoryRead} + \sum IO_{Active}^{ChannelTypes}
+  \label{eq:resource_load}
+\end{equation}
+
+\begin{equation}
+  Workload_{Resource}(State_{Current}, Inputs, Outputs) = State_{Actor Load} + ChannelConflicts(Inputs) + ResourceLoad(Inputs) + ResourceLoad(Outputs)
+  \label{eq:resourceworkload}
+\end{equation}
+
+
+\section{Decision Workload Metric}
+The decision workload metric attempts to measure the complexity of the decision making process 
 Describe what decision workload is, point reader towards FVHMS paper.  Present the metric itself with the equation.
 Intuition behind it?
 
