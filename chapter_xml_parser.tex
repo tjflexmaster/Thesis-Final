@@ -1,5 +1,7 @@
-\chapter{XML Modeling Extension} \label{ch:xmlparser}
-
+\chapter{XML Model Parser} \label{ch:xmlparser}
+ 
+This chapter describes the XML structure used to create the models used to predict workload within this thesis.  We first describe the XML structure components, we then briefly describe how the model is sent to the simulator.  A link to the full XML models used in our results can be found in appendix \ref{code}.
+\begin{comment}
 Modeling complex human-machine systems is a very difficult and time-consuming task.  This is evidenced by an abundance of modeling approaches for systems involving humans (ACT-R~\cite{anderson1996act}, Soar~\cite{laird2012soar}, DIARC~\cite{schermerhorn2006diarc}, Brahms~\cite{clancey1998brahms}, EOFM~\cite{bolton2009enhanced}), the panel ``Modeling Hurts'' AAAI workshop on Formal Methods in Human-Machine Systems~\cite{aaaisymposium2014modeling}, and our own experiences in generating the WiSAR models.
 
 By constructing the Modeling Interface aspect of the Model Abstraction Framework as a set of Java interfaces and abstract classes it meant that the framework was extremely flexible.  This approach enforces only a minimum set of requirements at the model level.  While this is very powerful it relies on the modeler for all requirements that cannot be enforced by the interfaces.  In our initial model we found implicit declarations, inconsistencies, duplicated code, coding bugs, and anonymous methods (unbound functions with access to local scope that can be declared in-line and make debugging and readability more difficult).  Each of these artifacts degrades the usability, extensibility, and maintainability of the model.  More importantly, it becomes almost impossible to know if the models are valid and error-free, which directly affects metric validity.  This chapter discusses an approach to creating Model Abstraction Framework models that reduce modeling issues while simplifying the modeling process.
@@ -9,6 +11,7 @@ By constructing the Modeling Interface aspect of the Model Abstraction Framework
 One approach for improving modeling efficiency is to create GUIs that help the user visualize the model in a way that allows them to more easily understand and make changes to the model.  An example of this is the Brahms Composer~\cite{seah2005multi}, which allows the user to create models on the GUI and to visualize the model in different ways.  Another approach is to use a language structure that is human readable and facilitates the creation of an accurate mental model.  An example of this is EOFM~\cite{bolton2009enhanced}, which uses an XML structure that can be visualized as a tree graph.  The last approach we will mention is the use of design patterns and object oriented principles to build models that do not exhibit these problems.  The downside to this approach is it requires expert Java programming skills to build error-free models.
 
 While others have successfully taken the third approach, for this thesis we chose to take an approach similar to that of EOFM by constructing an XML structure to represent our labeled state transition system.  Unlike EOFM, the XML structure is not the main modeling language.  The XML structure represents the subset of the Model Abstraction Framework language that is represented by the underlying Java objects implementing the Modeling Interface.  We chose this approach for several reasons:  XML is commonly used for modeling and other similar tasks~\cite{bolton2009enhanced}, it is simple to work with in Java, it is human readable, and it is structured.  This gave us confidence that we would be able to generate an XML model, perform validation on the model, and then convert the model into Java.  We also chose this approach because XML is semantically constrained to the structure we define.  The modeler needs only a basic understanding of XML structures and the defined modeling semantics to implement a model.  Another reason for this approach is the consistency with the Model Abstraction Framework design.  The Model Abstraction Framework represents a top down approach to abstraction, meaning that the top level Actors, States, Transitions, and Channels are very abstract.  Each subsequent layer removes a portion of that abstraction.  The XML modeling extension adds constraints to the top level Modeling Interface that are designed to remove unnecessary modeling capabilities from the modeling language.
+\end{comment}
 
 \section{XML Structure}
 
@@ -16,26 +19,65 @@ We defined the following XML structure to represent the labeled state transition
 
 The root node is the {\em \textless team\textgreater} element which consists of the {\em name} attribute and three child elements: {\em \textless channels\textgreater}, {\em \textless actors\textgreater}, and {\em \textless events\textgreater}.
 
-\begin{spacing}{.5}
-\lstinputlisting[language=XML]{xml_team.xml}
-\end{spacing}
+\begin{lstlisting}[frame=single]
+<team name="Basic UAS in NAS">
+  <channels></channels>
+  <actors></actors>
+  <events></events>
+</team>
+\end{lstlisting}
 
 \subsection{Channels}
 
 The {\em \textless channels\textgreater} element represents the DiTG and is comprised of any number of {\em \textless channel\textgreater} elements.  Each {\em \textless channel\textgreater} element represents a single uni-directional communication channel between a source Actor and a target Actor with attributes for the name, type, source, target, and optional dataType.  This is the only location in the XML that defines channels.  Every other {\em \textless channel\textgreater} element references one of these channels by using the channel name as its value.  In future work, we hope to identify other properties of channels such as bandwidth.
 
-\begin{spacing}{.5}
-\lstinputlisting[language=XML]{xml_channels.xml}
-\end{spacing}
+\begin{figure}[h]
+\begin{center}
+\includegraphics[width=6in]{layers.png}
+\caption{Communication Channel Layers}
+\label{fig:layers}
+\end{center}
+\end{figure}
+
+Each channel can have any number of layers, see figure \ref{fig:layers}.  For example, a visual channel from one person to another has two channels, one that analyzes the face and another that analyzes the body.  There may be more accurate channel layering for this scenario but these layers satisfy this example.  When communication occurs on this visual channel the recipient can examine as many layers as are needed for the given state.  If the person is in a distracted state then they may not be looking at the face layer, which may reduce the probability of comprehending the corresponding audio channel.  Another example where this is useful is in GUIs.  Each item that a GUI represents to the user can be represented as a different layer.  The more layers a GUI presents to a user the more complex it becomes, potentially making it more difficult for a person to analyze due to conflicting resources ~\cite{salvucci2008threaded}.
+
+\begin{lstlisting}[frame=single]
+<channels>
+  <channel name="V_UAS_UAVOP" type="VISUAL" source="UAS" target="UAVOP"/>
+  <channel name="M_UAVOP_UAS" type="MANUAL" source="UAVOP" target="UAS"/>
+</channels>
+
+<channel>M_UAS_UAVOP</channel>
+<channel name="MANUAL_UAVOP_UAS">
+  <layer name="MOUSE"><null/></layer>
+  <layer name="KEYBOARD"><null/></layer>
+</channel>
+\end{lstlisting}
+
 
 \subsection{Actors}
 
 The {\em \textless actors\textgreater} element represents the DiRGs contained in the model and is comprised of one or more {\em \textless actor\textgreater} elements.  Each {\em \textless actor\textgreater} has a {\em name} attribute, which must be unique, and a {\em showMetrics} attribute and is made up of several child elements.  The {\em \textless inputchannels\textgreater} and {\em \textless outputchannels\textgreater} elements are placed here to validate the DiTG.  The {\em actor} may have zero or more {\em memory} elements that represent declarative memory, memory that is an active part of the cognitive decision process, and is used internally as part of the labeled state transitions.  The {\em \textless actor\textgreater} contains a list of one or more {\em \textless state\textgreater} elements inside of the {\em \textless states\textgreater} element.  Additionally the {\em \textless actor\textgreater} element must contain a single {\em \textless startState\textgreater} element with a value that matches the name attribute of one of the {\em \textless states\textgreater} child elements.
 
-\begin{spacing}{.5}
-\lstinputlisting[language=XML]{xml_actors.xml}
-\end{spacing}
-
+\begin{lstlisting}[frame=single]
+<actors>
+  <actor name="UAVOP" showMetrics="true">
+    <inputchannels>
+      <channel>V_UAS_UAVOP</channel>
+      <channel>A_UAS_UAVOP</channel>
+      <channel>V_UAV_UAVOP</channel>
+    </inputchannels>
+    <outputchannels>
+      <channel>M_UAVOP_UAS</channel>
+    </outputchannels>
+    <memory name="FLIGHT_PLAN_READY" dataType="Boolean">false</memory>
+    <startState>IDLE</startState>
+    <states>
+      <state name="IDLE" load="0"></state>
+    </states>
+  </actor>
+</actors>
+\end{lstlisting}
 
 \subsection{States and Transitions}
 
@@ -53,29 +95,53 @@ This structure allows the modeler to use a 2 dimensional labeling system.  The f
 
 The value of the {\em \textless endState\textgreater} element contains the name of the Actor's ending state if this transition is applied.  This value cannot be empty and must match an existing {\em \textless state\textgreater} name.
 
-\begin{spacing}{.5}
-\lstinputlisting[language=XML]{xml_state_transition.xml}
-\end{spacing}
+\begin{lstlisting}[frame=single]
+<state name="END_BUILD_FP" load="0">
+  <transition durationMin="1" durationMax="1" priority="1">
+    <description>Clear mouse and keyboard output layers</description>
+    <inputs>
+    </inputs>
+    <outputs>
+      <channel name="M_UAVOP_UAS">
+        <layer name="MOUSE"><null/></layer>
+        <layer name="KEYBOARD"><null/></layer>
+      </channel>
+    </outputs>
+    <endState>WAITING_ON_FAA</endState>
+  </transition>
+</state>
+\end{lstlisting}
 
 
 \subsection{Events}
 
 The {\em \textless events\textgreater} element contains a child {\em \textless event\textgreater} element for each unique type of event the system can experience.  The {\em \textless event\textgreater} has a {\em name} attribute, must be unique, and a {\em count} attribute that determines how many times the event will be fired during the simulation.  Each {\em \textless event\textgreater} element defines a single {\em \textless transition\textgreater} element that differs from the previously mentioned transition element in that it does not define duration, priority, or an end state.  Since Events have a single state and a single transition there is no need for these additional transition attributes.  At the implementation level this forces Events to act as sipmle triggers that perturb the model in interesting ways.
 
-\begin{spacing}{.5}
-\lstinputlisting[language=XML]{xml_events.xml}
-\end{spacing}
+\begin{lstlisting}[frame=single]
+<events>
+  <event name="NEW_MISSION" count="1">
+    <transition>
+      <description> Start a new UAV mission</description>
+      <inputs>
+      </inputs>
+      <outputs>
+        <channel name="NEW_MISSION">NEW_MISSION</channel>
+      </outputs>
+    </transition>
+  </event>
+</events>
+\end{lstlisting}
 
 \section{XML Model Parser}
 
-Figure~\ref{fig:xml_model_extension} illustrates the process of parsing the XML model.  To accomplish this we created a Java class named XMLModelParser.  This class performed two main functions.  The first was to create the necessary Java objects and the second was to perform basic error checking on the model.  
+Figure~\ref{fig:xml_model_extension} illustrates the process of parsing the XML model.  To accomplish this we created a Java class named XMLModelParser.  This class performs two main functions.  The first is to create the necessary Java objects and the second is to perform basic error checking on the model.  
 
 The XMLModelParser works by first loading the XML model into an XML object.  This allows us to search the XML structure for specific elements and attributes.  The structure of the XML model facilitates the parsing effort since each child element is also a child object.  The first object that is created is the Team.  Next the DiTG is added to the team by creating ComChannel objects for each channel.  The Actor parsing is the most complex.  Each actor element defines input and output channels, memory, states, transitions, and labels.
 
 \begin{figure}[h]
 \begin{center}
 \includegraphics[width=\textwidth]{xml_model_extension.png}
-\caption{XML Model Extension Breakdown}
+\caption{XML Model Parser Breakdown}
 \label{fig:xml_model_extension}
 \end{center}
 \end{figure}
@@ -84,8 +150,9 @@ The XMLModelParser works by first loading the XML model into an XML object.  Thi
 
 To pass a valid labeled state transition system to the simulator, the XMLModelParser must construct Java classes that implement the Modeling Interface.  To accomplish this we created a set of generic XML classes.  Each class implements a specific portion of the Modeling Interface such as the ITransition or IActor interfaces.  These interfaces allow the simulator to query and execute transitions on the labeled state transition system.  The list of XML classes includes the XMLTeam, XMLActor, XMLTransition, XMLEvent, XMLEventTransition and other helper classes.  A link to the source code can be found in appendix~\ref{code}.  Each of these generic XML classes lies separate from the core simulation code.  
 
-This means that the addition of the XML parser does not prevent the use of custom Actors or Transition classes, use of a different model parser, or extension of our existing XML parser.  In fact our XML model extension is meant to be expanded to handle a more robust set of models.   As we developed a model using this XMLModelParser we had several occasions to extend its capabilities, which we discuss later.  Unsurprisingly it was not difficult to extend the XML to accommodate the changes, often requiring less than 100 lines of code (not including changes to the model XML).
+This means that the addition of the XML parser does not prevent the use of custom Actors or Transition classes, use of a different model parser, or extension of our existing XML parser.  In fact our XML model parser is meant to be expanded to handle a more robust set of models.   As we developed a model using this XMLModelParser we had several occasions to extend its capabilities.
 
+\begin{comment}
 \subsection{Validation}
 
 Model validation occurred in three phases: Sample WiSAR, Full WiSAR, and UAS in NAS\footnote{Jared Moore and Robert Ivie were a great help in constructing, validating, and running the Sample WiSAR and Full WiSAR models.  Without their excellent contributions this work would have taken much longer to complete.}.  In each phase a model was created and validated.  The models from the first two phases were written in Java and directly implemented the Modeling Interface.  The UAS in NAS model was written in XML using the XML Modeling Extension.  This section discusses the challenges we observed during the first two modeling phases, and compares those results against the last modeling phase.
@@ -108,6 +175,9 @@ This extension also helps by introducing a new validation tool.  The need to par
 
 Another benefit introduced with this extension was the generic Java classes.  Each XML component had a single Java implementation.  This guaranteed that similar components would share the same behavior, something that Java interfaces do not provide.  It also meant that bugs in the Java code only needed to be fixed in a single location.
 
+\end{comment}
+
+\begin{comment}
 \section{Channel Layers}
 
 While working on this extension it became apparent that our channel design was flawed.  From Threaded Cognition Theory~\cite{salvucci2008threaded} we are aware that an individual can perform multiple concurrent tasks that do not require an executive process.  It does not matter if those concurrent tasks originate from multiple sources or a single source, such as a GUI.  Our previous design restricted channels to a single type of data with no restriction as to what that data type was.  While an arbitrary data type allowed us to pass any amount of data, it made it very difficult to know what was really happening on the communication channel.  What we mean by this is that instead of explicitly defining concurrent tasks we rely on inputs and actor state to imply that concurrent tasks are being performed.  The arbitrary data type thus prevented a single communication channel from implying multiple concurrent tasks.
@@ -124,3 +194,4 @@ To fix this flaw we decided to add layers to our communication channels. Figure~
 
 We believe that this concept of channel layers creates a more natural flow of information across the DiTG while aligning the Model Abstraction Framework with modern human workload theory.  Additionally we have the ability to perform a number of different measurements on the channel layers that may prove valuable in obtaining accurate human workload measurements when combined with our other metrics.
 
+\end{comment}
