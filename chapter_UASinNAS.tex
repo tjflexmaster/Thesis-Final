@@ -1,5 +1,6 @@
 \chapter{Case Study: UAS operating in the NAS} \label{ch:UASinNAS}
 
+\begin{comment}
 According to the integration of civil Unmanned Aerial Systems into the Nation Airspace System roadmap~\cite{nasroadmap} the FAA is working with other government agencies and industry to develop a collaborative UAS modeling and simulation environment to explore key challenges to UAS integration. The near-term modeling goals are to:
 \begin{itemize}
   \item Validate current mitigation proposals
@@ -24,10 +25,15 @@ The roadmap~\cite{nasroadmap} also identifies several interrelated research chal
 The Model Abstraction Framework was specifically designed to model human-automation interaction for UAS.  Our WiSAR model specifically demonstrates predictability and contingency management for each path in the model.  The DiRG allows us to model specific roles and their responsibilities while the DiTG defines communication flow between different roles.  And the workload metrics allow models of human performance to be verified.
 
 Due to the nearly identical nature of the FAA's goals with our own, we have modeled a basic Unmanned Aerial System integrating into the National Airspace System.  Due to our lack of domain knowledge we have had to make a number of assumptions in order to achieve a high level of abstraction.  Despite the high level of abstraction we believe that the results are informative.
+\end{comment}
+
+To analyze the workload metrics presented in the previous chapter we chose to perform a case study by modeling the integration of a UAS into the National Airspace System.  First we will describe the scenario that we modeled and the assumptions required to make the model work.  Then we will present an analysis of the workload metrics gathered using the Model Abstraction Framework.
 
 \section{Model Scenario and Assumptions}
 
-  To help illustrate this model we have created a DiRG that shows the states and data flow for each Actor.  Figure~\ref{fig:uasnasdirg}.  A matching DiTG for the model showing the Actor communication channels can be seen in figure~\ref{fig:uasnasditg}.
+Since we would eventually like to correlate these workload metrics with real human workload our goal was to model a UAS that presented high and low workload periods similar to those observed during the WiSAR flight tests.  Such as creating fight plans, monitoring normal flight, handling active alarms, introducing increased autonomy, and handling operator interruptions.  This will allow us to check that the results are generally consistent with a known workload profile.  The model we chose was the integration of a UAS into the National Airspace System.
+
+To help illustrate this model we have created a DiRG that shows the states and data flow for each Actor.  Figure~\ref{fig:uasnasdirg}.  A matching DiTG for the model showing the Actor communication channels can be seen in figure~\ref{fig:uasnasditg}.
 
 An Unmanned Aerial System (UAS) plans to operate within the National Airspace System.  The UAS is composed of a server (UAS Server), an Unmanned Aerial Vehicle Operator (UAV Operator), and an Unmanned Aerial Vehicle (UAV).  The UAV Operator controls the UAS Server through a graphical user interface (UAS GUI) that in turn controls the UAV, as illustrated in the DiTG shown in figure~\ref{fig:uasnasditg}.  The UAV will take off and land at an airport serving both manned and unmanned aerial vehicles.  The UAV Operator is located at this airport and visually monitors the takeoff and landing of the UAV.  UAV state is continuously shown on the UAS GUI.
 
@@ -55,7 +61,7 @@ The UAV also has a radar that can detect nearby objects.  This information is di
 
 \subsection{Assumptions}
 
-The number of assumptions made in this scenario is too great to fully list.  Instead we have only attempted to list the major assumptions that are required for the model to perform as designed.
+Given our lack of domain knowledge regarding the National Airspace System we have had to make a number of assumptions in order to achieve a high level of abstraction.  The assumptions required for the model to perform as designed are:
 \begin{itemize}
   \item The UAV has an unlimited flight time, never loses contact with the UAS Server, can takeoff and land without incident, has accurate GPS data, and is non line-of-sight.
   \item The UAS Server/GUI never loses connection to the FAA Server, always has instant communication with the UAV and FAA Server, has no bugs, can create flight plans, can detect NOTAMs on the flight plan, can automatically direct the UAV out of an emergency NOTAM, displays radar information from the UAV, and never goes down.
@@ -64,6 +70,7 @@ The number of assumptions made in this scenario is too great to fully list.  Ins
   \item The ATC detects all information displayed on the FAA GUI, can add NOTAMS with the FAA GUI, always adds NOTAMS correctly, and approves all flight plans.
 \end{itemize}
 
+\begin{comment}
 \section{Building the Model}
 
 Initially working with a single XML file instead of multiple Java class files was very convenient.  Additionally the ability to validate the model each time we added a new transition led to very rapid development.  The simplified syntax also made construction easier.  Figure~\ref{fig:read_transition} shows two different transitions, one in Java and the other in XML.  Determining the inputs, outputs, end state, and more is much easier to do with the XML transition because of the hierarchical structure and the smaller syntax footprint.  Unfortunately as the model complexity increased the added readability alone was not enough to counter the complexity as the number of transitions and inter-Actor communications increased.  
@@ -98,12 +105,15 @@ While there are many ways to get into an infinite loop we will only mention two 
 The second common error leading to an infinite loop is uncleared outputs.  Uncleared output channels cause an Actor to believe that new input has been received even though it has not, sending the Actor into an infinite cycle.  It is often best practice to clear an Actors outputs once those outputs are no longer being sent across the channel.  This will prevent the target from reading invalid outputs.  If the output values represent a continuous communication that should not be cleared, such as displaying live state information on a GUI, then another approach is to use Actor memory to track changes in input.
 
 While the use of XML to create the model was much more efficient we still feel that a more effective approach to modeling is needed to help standardize the modeling format and prevent common errors.  Whether this approach is a different XML structure, an entirely new format, or a GUI interface that helps visualize the data flow and transition sequences we leave to future work.
+\end{comment}
 
 \section{Model Results}
 
-We were very impressed with the results generated with this new case study. See Figures~\ref{fig:uavop_baseline}-\ref{fig:uavop_conflict}.  We created three scenarios by adding small variations to the model, a task that was greatly simplified by the use of XML once the initial model was complete.  The first scenario involved an uneventful flight.  The second scenario involves the UAV Operator manually avoiding an emergency NOTAM.  The third scenario involves the UAV automatically avoiding an emergency NOTAM.  The second and third scenarios also involve a possible UAV collision and the ATC adding a NOTAM onto the UAV flight path.  Additionally we added a high workload scenario that involves the UAV Operator being interrupted by another person while deconflicting the UAV.  
+We created three scenarios by adding small variations to the model.  The first scenario involved an uneventful flight.  The second scenario involves the UAV Operator manually avoiding an emergency NOTAM.  The third scenario involves the UAV automatically avoiding an emergency NOTAM.  The second and third scenarios also involve a possible UAV collision and the ATC adding a NOTAM onto the UAV flight path.  Additionally we added a high workload scenario that involves the UAV Operator being interrupted by another person while deconflicting the UAV.  The respective results are shown in figures \ref{fig:uavop_baseline}-\ref{fig:uavop_conflict}.
 
 For each scenario we have four charts depicting the UAV Operator workload and four charts depicting the ATC workload; we currently ignore the workload for non-human Actors.  The first three charts represent the resource input, resource output, and decision workload.  The last chart shows the combined total workload next to the adapted Wickens' model.  For each chart the y axis represents the workload value while the x axis represents Actor state for the given delta time.  What this means is that the x axis cannot be seen as a normal timeline since each time step represents an arbitrary amount of time.  Instead this should be viewed as a progressive change in Actor workload for each time step where a transition was fired.
+
+The results we obtained from the Model Abstraction Framework are very encouraging due to the general consistency with the expected workload.  Despite a few unexplained anomalies, example in figure \ref{fig:atc_manual}, and some unusual workload spikes, shown in figure \ref{uavop_auto}, we can see that generally the Actors have more workload when performing active tasks and less workload for simple tasks.  A clear example of this is the UAV Operator workload in figure \ref{fig:uavop_baseline}.  The workload spikes while creating the flight plan then remains low while monitoring the UAV GUI for information.  When that information is received we see a small spike followed by a prolonged workload spike while the UAV Operator is deconflicting the flight plan.
 
 \subsection{Inter Actor Comparison}
 
