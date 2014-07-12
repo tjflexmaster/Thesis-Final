@@ -1,0 +1,25 @@
+\chapter{Related Work} \label{ch:relatedwork}
+
+Threaded cognition theory states that humans can perform
+multiple concurrent tasks that do not require executive processes.  By making a
+broad list of resource assumptions about humans, threaded cognition is able to
+detect the resource conflicts of multiple concurrent tasks.  Additionally
+threaded cognition is able to model task learning.  Our model differs from
+Threaded cognition theory in a few key areas, our model does not allow learning
+which decreases workload through skill mastery.  Also, it does not distinguish
+between perceptual and motor resources, instead perception and action both use
+the same resource.  In almost all other aspects our model behaves in a similar fashion. \cite{salvucci2008threaded}
+
+Other similar work has attempted to predict the number of UAVs an operator can
+control, otherwise known as {\em fan-out}. \cite{cummings2007predicting}  This work used queuing theory
+to model how a human responds in a time sensitive multi-task environment.  Queuing theory is helpful in determining the temporal effects of task performance by measuring the difference between when a task was received and when it was executed.  At the highest level our model uses Queuing theory, our Actors can only perform a single transition at a time.  We differ, however, in that a transition may represent multiple concurrent tasks.
+
+Act-R is a cognitive architecture which attempts to model human cognition and
+has been successful in human-computer interaction applications. \cite{anderson2004integrated}  The
+framework for this architecture consists of modules, buffers, and a pattern
+matcher which in many ways are very similar to our own framework.  The major
+difference being the cognitive detail available with ACT-R such as memory access
+time, task learning, and motor vs perceptual resource differences.
+\cite{moray1982subjective,newell1994unified}
+
+Brahms is a modeling language, developed by the Nasa Ames Research Center, used for modeling multi-agent systems. \cite{clancey1998brahms}  The language allows the modeler to create highly detailed models consisting of agents, objects, locations, activities, and more.  Brahms also allows modeling of time/resource requirements and has been used to find communication bottlenecks and to estimate the value of adding automation.  In many ways Brahms is very similar to the Model Abstraction Framework and at some point it may be possible to introduce the workload metrics we are developing into the Brahms language.  We chose not to use Brahms for this research due to the complexity of the modeling language, preferring instead a simple modeling language that would make experimenting with the language implementation more feasible.

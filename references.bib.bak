@@ -20,17 +20,17 @@
   timestamp = {2012.02.03}
 }
 
-@ARTICLE{adams2009cognitive,
-  author = {Adams, Julie A and Humphrey, Curtis M and Goodrich, Michael A and
-	Cooper, Joseph L and Morse, Bryan S and Engh, Cameron and Rasmussen,
-	Nathan},
-  title = {Cognitive task analysis for developing unmanned aerial vehicle wilderness
-	search support},
-  journal = {Journal of cognitive engineering and decision making},
+@ARTICLE{Adams2009Cognitive,
+  author = {J. A. Adams and C. M. Humphrey and M. A. Goodrich and J. L. Cooper
+	and B. S. Morse and C. Engh and N. Rasmussen},
+  title = {Cognitive Task Analysis for Developing {UAV} Wilderness Search Support},
+  journal = {Journal of Cognitive Engineering and Decision Making},
   year = {2009},
   volume = {3},
   pages = {1--26},
   number = {1},
+  date-added = {2008-09-08 14:56:55 -0600},
+  date-modified = {2009-01-13 21:23:33 -0700},
   publisher = {SAGE Publications}
 }
 
@@ -86,7 +86,7 @@
 	Dennis and Gunter, Elsa and Mansky, William and Rushby, John},
   title = {Toward a multi-method approach to formalizing human-automation interaction
 	and human-human communications},
-  booktitle = {Systems, Man, and Cybernetics (SMC), 2011 IEEE International Conference
+  booktitle = {Systems, Man, and Cybernetics (SMC),IEEE International Conference
 	on},
   year = {2011},
   pages = {1817--1824},
@@ -98,9 +98,8 @@
   author = {Bolton, M. Bass, E. and Siminiceanu R.},
   title = {Using Formal Verification to Evaluate Human-Automation Interaction:
 	A Review},
-  booktitle = {Systems, Man and Cybernetics: Systems, IEEE Transactions on
-	
-	},
+  booktitle = {Systems, Man and Cybernetics (SMC), IEEE International Conference
+	on},
   year = {2013},
   address = {Manchester, England},
   organization = {IEEE}
@@ -120,8 +119,8 @@
   author = {Bolton, Matthew L and Bass, Ellen J},
   title = {Enhanced operator function model: A generic human task behavior modeling
 	language},
-  booktitle = {Systems, Man and Cybernetics, 2009. SMC 2009. IEEE International
-	Conference on},
+  booktitle = {Systems, Man and Cybernetics (SMC), IEEE International Conference
+	on},
   year = {2009},
   pages = {2904--2911},
   address = {San Anotonio, Texas},
@@ -195,8 +194,8 @@
   author = {Cooper, J. and Goodrich, M.A.},
   title = {Towards combining {UAV} and sensor operator roles in {UAV-enabled}
 	visual search},
-  booktitle = {Proceedings of the 3rd ACM/IEEE international conference on Human
-	robot interaction},
+  booktitle = {Human Robot Interaction (HRI), ACM/IEEE International Conference
+	on },
   year = {2008},
   pages = {351--358},
   address = {Amsterdam, Netherlands},
@@ -207,7 +206,7 @@
   author = {Cooper, Joseph L and Goodrich, Michael A},
   title = {Integrating critical interface elements for intuitive single-display
 	aviation control of UAVs},
-  booktitle = {Defense and Security Symposium},
+  booktitle = {Defense and Security Symposium, Proceedings on},
   year = {2006},
   pages = {62260B--62260B},
   address = {Orlando, Florida},
@@ -249,7 +248,7 @@
 @INPROCEEDINGS{gledhill2013modeling,
   author = {Gledhill, TJ and Mercer, Eric and Goodrich, Michael A},
   title = {Modeling UASs for Role Fusion and Human Machine Interface Optimization},
-  booktitle = {Systems, Man, and Cybernetics (SMC), 2013 IEEE International Conference
+  booktitle = {Systems, Man, and Cybernetics (SMC), IEEE International Conference
 	on},
   year = {2013},
   pages = {1929--1937},
@@ -261,9 +260,7 @@
   title = {Digital Image Processing},
   publisher = {Prentice Hall, Upper Saddle River, NJ},
   year = {2002},
-  author = {Gonzalez, R. and Woods, R.},
-  owner = {TJ-ASUS},
-  timestamp = {2012.02.03}
+  author = {Gonzalez, R. and Woods, R.}
 }
 
 @INCOLLECTION{goodrich2010fanout,
@@ -281,8 +278,8 @@
 	and Zeeman, R. and Buss, B.G.},
   title = {Using a {mini-UAV} to support wilderness search and rescue: Practices
 	for human-robot teaming},
-  booktitle = {Safety, Security and Rescue Robotics, 2007. SSRR 2007. IEEE International
-	Workshop on},
+  booktitle = {Safety, Security and Rescue Robotics (SSRR), IEEE International Workshop
+	on},
   year = {2007},
   pages = {1--6},
   address = {Rome, Italy},
@@ -299,9 +296,7 @@
   volume = {10},
   pages = {453--478},
   number = {3},
-  owner = {TJ-ASUS},
-  publisher = {John Benjamins Publishing Company},
-  timestamp = {2011.12.01}
+  publisher = {John Benjamins Publishing Company}
 }
 
 @ARTICLE{goodrich2008supporting,
@@ -314,16 +309,14 @@
   volume = {25},
   pages = {89--110},
   number = {1-2},
-  owner = {TJ-ASUS},
-  publisher = {Wiley Online Library},
-  timestamp = {2011.12.01}
+  publisher = {Wiley Online Library}
 }
 
 @INPROCEEDINGS{humphrey2009human,
   author = {Humphrey, C.M. and Motter, S.R. and Adams, J.A. and Gonyea, M.},
   title = {A human eye like perspective for remote vision},
-  booktitle = {Systems, Man and Cybernetics, 2009. SMC 2009. IEEE International
-	Conference on},
+  booktitle = {Systems, Man and Cybernetics (SMC), IEEE International Conference
+	on},
   year = {2009},
   pages = {1650--1655},
   address = {San Antonio, Texas},
@@ -350,9 +343,7 @@
 	- for Land, Air and Water},
   publisher = {dbS Productions Charlottesville, Virginia},
   year = {2008},
-  author = {Robert J. Koester},
-  owner = {TJ-ASUS},
-  timestamp = {2011.12.19}
+  author = {Robert J. Koester}
 }
 
 @BOOK{laird2012soar,
@@ -374,8 +365,8 @@
 @INPROCEEDINGS{lin2009uav,
   author = {Lin, L. and Goodrich, M.A.},
   title = {{UAV} intelligent path planning for wilderness search and rescue},
-  booktitle = {Intelligent Robots and Systems, 2009. IROS 2009. IEEE/RSJ International
-	Conference on},
+  booktitle = {Intelligent Robots and Systems (IROS), IEEE/RSJ International Conference
+	on},
   year = {2009},
   pages = {709--714},
   address = {St. Louis, Missouri},
@@ -386,7 +377,7 @@
   author = {Lin, L. and Roscheck, M. and Goodrich, M.A. and Morse, B.S.},
   title = {Supporting Wilderness Search and Rescue with Integrated Intelligence:
 	Autonomy and Information at the Right Time and the Right Place},
-  booktitle = {Twenty-Fourth AAAI Conference on Artificial Intelligence},
+  booktitle = {Artificial Intelligence, Twenty-Fourth AAAI Conference on },
   year = {2010},
   address = {Atlanta, Georgia},
   organization = {AAAI}
@@ -395,9 +386,21 @@
 @INPROCEEDINGS{MitchellCummings2005,
   author = {P. M. Mitchell and M. L. Cummings},
   title = {Management of Multiple Dynamic Human Supervisory Control Tasks},
-  booktitle = {10th International Command and Control Research And Technology Symposium},
+  booktitle = {Command and Control Research And Technology, 10th International Symposium
+	on},
   year = {2005},
   address = {Washington DC}
+}
+
+@INPROCEEDINGS{moore2014modeling,
+  author = {Moore, JJ and Ivie, R and Gledhill, TJ and Mercer, E and Goodrich,
+	MA},
+  title = {Modeling Human Workload in Unmanned Aerial Systems},
+  booktitle = {Formal Verification \& Modeling in Human-Machine Systems, AAAI Spring
+	Symposium Series},
+  year = {2014},
+  address = {Palo Alto, California},
+  organization = {AAAI}
 }
 
 @ARTICLE{moray1982subjective,
@@ -427,8 +430,8 @@
   author = {Morse, Bryan S. and Engh, Cameron H. and Goodrich, Michael A.},
   title = {{UAV} video coverage quality maps and prioritized indexing for wilderness
 	search and rescue},
-  booktitle = {Proceedings of the 5th ACM/IEEE international conference on Human-robot
-	interaction},
+  booktitle = {Human-Robot Interaction (HRI), 5th ACM/IEEE International Conference
+	on },
   year = {2010},
   pages = {227--234},
   address = {Osaka, Japan},
@@ -439,8 +442,8 @@
   author = {Morse, Bryan S and Thornton, Daniel and Goodrich, Michael A},
   title = {Color anomaly detection and suggestion for wilderness search and
 	rescue},
-  booktitle = {Proceedings of the seventh annual ACM/IEEE international conference
-	on Human-Robot Interaction},
+  booktitle = {Human-Robot Interaction (HRI), 7th ACM/IEEE International Conference
+	on},
   year = {2012},
   pages = {455--462},
   address = {Boston, Massachusetts},
@@ -480,7 +483,8 @@
 @INPROCEEDINGS{peschel2011mission,
   author = {Peschel, J.M. and Murphy, R.R.},
   title = {Mission specialist interfaces in unmanned aerial systems},
-  booktitle = {Proceedings of the 6th international conference on Human-robot interaction},
+  booktitle = {Human-Robot Interaction (HRI), 6th ACM/IEEE International Conference
+	on},
   year = {2011},
   pages = {225--226},
   address = {Lausanne, Switzerland},
@@ -490,8 +494,8 @@
 @INPROCEEDINGS{quigley2004semi,
   author = {Quigley, M. and Goodrich, M.A. and Beard, R.W.},
   title = {Semi-autonomous human-UAV interfaces for fixed-wing {mini-UAVs}},
-  booktitle = {Intelligent Robots and Systems, 2004.(IROS 2004). Proceedings. 2004
-	IEEE/RSJ International Conference on},
+  booktitle = {Intelligent Robots and Systems (IROS), IEEE/RSJ International Conference
+	on},
   year = {2004},
   volume = {3},
   pages = {2457--2462},
@@ -504,8 +508,7 @@
 	and Beard, R.W.},
   title = {Target acquisition, localization, and surveillance using a fixed-wing
 	{mini-UAV} and gimbaled camera},
-  booktitle = {Robotics and Automation, 2005. ICRA 2005. Proceedings of the 2005
-	IEEE International Conference on},
+  booktitle = {Robotics and Automation (ICRA), IEEE International Conference on},
   year = {2005},
   pages = {2600--2605},
   address = {Barcelona, Spain},
@@ -516,8 +519,7 @@
   author = {Rasmussen, N.D. and Thornton, D.R. and Morse, B.S.},
   title = {Enhancement of unusual color in aerial video sequences for assisting
 	wilderness search and rescue},
-  booktitle = {Image Processing, 2008. ICIP 2008. 15th IEEE International Conference
-	on},
+  booktitle = {Image Processing (ICIP), 15th IEEE International Conference on},
   year = {2008},
   pages = {1356--1359},
   address = {San Diego, California},
@@ -529,8 +531,8 @@
 	Charlotte and Raimondi, Franco and Seah, Chin and Shafto, Michael},
   title = {Aviation safety: modeling and analyzing complex interactions between
 	humans and automated systems},
-  booktitle = {Proceedings of the 3rd International Conference on Application and
-	Theory of Automation in Command and Control Systems},
+  booktitle = {Application and Theory of Automation in Command and Control Systems,
+	3rd International Conference on },
   year = {2013},
   pages = {27--37},
   address = {Naples, Italy},
@@ -551,7 +553,7 @@
 @INPROCEEDINGS{schermerhorn2006diarc,
   author = {Schermerhorn, Paul W and Kramer, James F},
   title = {DIARC: A Testbed for Natural Human-Robot Interaction.},
-  booktitle = {Artificial Intelligence, Twenty-First National Conference on},
+  booktitle = {Artificial Intelligence, 21st National Conference on},
   year = {2006},
   address = {Boston, Massachusetts},
   organization = {AAAI}
@@ -563,7 +565,7 @@
   title = {Multi-agent modeling and simulation approach for design and analysis
 	of MER mission operations},
   booktitle = {Human-Computer Interface Advances for Modeling and Simulation (SIMCHI
-	2005), Proceedings of 2005 International conference on},
+	2005), International Conference on},
   year = {2005},
   pages = {73--78},
   address = {New Orleans, Louisiana}
@@ -573,16 +575,13 @@
   title = {Wilderness Search and Rescue},
   publisher = {Apalachian Mountain Club, Boston, MA},
   year = {1980},
-  author = {Tim J. Setnicka},
-  owner = {TJ-ASUS},
-  timestamp = {2011.12.08}
+  author = {Tim J. Setnicka}
 }
 
 @INPROCEEDINGS{waharte2010supporting,
   author = {Waharte, S. and Trigoni, N.},
   title = {Supporting Search and Rescue Operations with {UAVs}},
-  booktitle = {Emerging Security Technologies (EST), 2010 International Conference
-	on},
+  booktitle = {Emerging Security Technologies (EST), International Conference on},
   year = {2010},
   pages = {142--147},
   address = {Canterbury, United Kingdom},
@@ -616,8 +615,6 @@
 	Airspace System (NAS) Roadmap},
   organization = {U.S. Department of Transporation Federal Aviation Administration},
   edition = {First Edition},
-  year = {2013},
-  owner = {TJ-ASUS},
-  timestamp = {2014.02.17}
+  year = {2013}
 }
 
