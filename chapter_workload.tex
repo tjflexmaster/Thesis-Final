@@ -49,9 +49,9 @@ To mimic resource demand within the Model Abstraction Framework we introduce the
 To calculate the dimensionality of resource conflicts we need a way to determine when multiple tasks are being performed.  Since the Model Abstraction Framework does not define specific tasks we must find another method to approximate when multiple tasks are being performed.  We accomplish this by making the assumption that if an Actor has input from multiple sources then multiple tasks are being performed.
 
 \begin{equation}
-D_{Stages}(\Sigma, \Lambda) = \left\{ 
+D_{Stages}(\Phi, \Lambda) = \left\{ 
   \begin{array}{l l}
-    1, \Sigma_{sources} > 1 & \quad \text{Multiple Input Sources}\\
+    1, \Phi_{sources} > 1 & \quad \text{Multiple Input Sources}\\
     1, \Lambda_{targets} > 1 & \quad \text{Multiple Output Targets}\\
     0, otherwise
   \end{array}
@@ -59,12 +59,12 @@ D_{Stages}(\Sigma, \Lambda) = \left\{
   \label{eq:stage_dimension}
 \end{equation}
 
-With this assumption we are ready to calculate dimensional conflicts as illustrated in Figure~\ref{fig:multipleresourcetheory}.  If $\Sigma$ represents the set of all inputs and $\Lambda$ the set of all outputs then we calculate the dimensional conflicts as follows.  For the Stages dimension (Perception, Cognition, Response), equation~\ref{eq:stage_dimension}, we check to see if there are multiple sources of {\em active} input or multiple output targets, not including memory inputs and outputs.  If multiple sources or targets exist then the stages dimensionality ($D_{Stages}$) has a conflict.
+With this assumption we are ready to calculate dimensional conflicts as illustrated in Figure~\ref{fig:multipleresourcetheory}.  If $\Phi$ represents the set of all inputs and $\Lambda$ the set of all outputs then we calculate the dimensional conflicts as follows.  For the Stages dimension (Perception, Cognition, Response), equation~\ref{eq:stage_dimension}, we check to see if there are multiple sources of {\em active} input or multiple output targets, not including memory inputs and outputs.  If multiple sources or targets exist then the stages dimensionality ($D_{Stages}$) has a conflict.
 
 \begin{equation}
-D_{Modalities}(\Sigma, \Lambda) = \left\{ 
+D_{Modalities}(\Phi, \Lambda) = \left\{ 
   \begin{array}{l l}
-    1, \Sigma_{active}^{audio/visual} > 1 & \quad \text{Multiple Active Inputs}\\
+    1, \Phi_{active}^{audio/visual} > 1 & \quad \text{Multiple Active Inputs}\\
     1, \Lambda_{active}^{audio/visual} > 1 & \quad \text{Multiple Active Outputs}\\
     0, otherwise
   \end{array}
@@ -75,10 +75,10 @@ D_{Modalities}(\Sigma, \Lambda) = \left\{
 For the Modalities dimension (Audio, Visual), equation~\ref{eq:modality_dimension}, we check if there is more than a single {\em active} channel, input or output, for a specific channel type.  If there is then the modality dimensionality ($D_{Modality}$) has a conflict.
 
 \begin{equation}
-D_{Codes}(\Sigma, \Lambda) = \left\{ 
+D_{Codes}(\Phi, \Lambda) = \left\{ 
   \begin{array}{l l}
-    1, \Sigma^{audio} + \Lambda^{audio} > 1\\
-    1, \Sigma^{visual/manual} + \Lambda^{visual/manual} > 1\\
+    1, \Phi^{audio} + \Lambda^{audio} > 1\\
+    1, \Phi^{visual/manual} + \Lambda^{visual/manual} > 1\\
     0, otherwise
   \end{array}
   \right.
@@ -100,10 +100,10 @@ D_{VP}(\Lambda) = \left\{
 For the Visual Processing dimension, equation~\ref{eq:focus_dimension}, we check if there is more than one target for manual outputs.  We do not check inputs as we have no way of distinguishing if a visual channel is focal or ambient.  Instead we assume that manual outputs require visual focus, allowing us to determine if visual processing is split between multiple tasks.  If we have manual output to multiple targets then the visual processing dimensionality ($D_{VP}$) has a conflict
 
 \subsection{Adapted Wickens' Model}
-Using the Actor Load and the adapted dimensionality conflicts we are now in a position to replicate $W_{Wickens}$ within the Model Abstraction Framework.  As the model values are calculated differently than Wickens' model we will refer to this model as an adapted Wickens' model $W_{Wickens}^{Adapted}$.  The equation \ref{eq:adapted_wickens_model} is as follows: given an actors State $S$ we can obtain Actor Load $S_{A_{Load}}$ as well as the inputs $S_{\Sigma}$ and outputs $S_{\Lambda}$ needed to calculate the four dimensionality values.  We obtain $W_{Wickens}^{Adapted}$ by adding $S_{A_{Load}}$  to the sum of the four dimensionality values.  This ensures that $W_{Wickens}^{Adapted}$ is between 0 and 8, just like $W_{Wickens}$.
+Using the Actor Load and the adapted dimensionality conflicts we are now in a position to replicate $W_{Wickens}$ within the Model Abstraction Framework.  As the model values are calculated differently than Wickens' model we will refer to this model as an adapted Wickens' model $W_{Wickens}^{Adapted}$.  The equation \ref{eq:adapted_wickens_model} is as follows: given an actors State $S$ we can obtain Actor Load $S_{A_{Load}}$ as well as the inputs $S_{\Phi}$ and outputs $S_{\Lambda}$ needed to calculate the four dimensionality values.  We obtain $W_{Wickens}^{Adapted}$ by adding $S_{A_{Load}}$  to the sum of the four dimensionality values.  This ensures that $W_{Wickens}^{Adapted}$ is between 0 and 8, just like $W_{Wickens}$.
 
 \begin{equation}
-  W_{Wickens}^{Adapted}(S) = S_{A_{Load}} + D_{Stages}(S_{\Sigma}, S_{\Lambda}) + D_{Modalities}(S_{\Sigma}, S_{\Lambda}) + D_{Codes}(S_{\Sigma}, S_{\Lambda}) + D_{VP}(S_{\Sigma}, S_{\Lambda})
+  W_{Wickens}^{Adapted}(S) = S_{A_{Load}} + D_{Stages}(S_{\Phi}, S_{\Lambda}) + D_{Modalities}(S_{\Phi}, S_{\Lambda}) + D_{Codes}(S_{\Phi}, S_{\Lambda}) + D_{VP}(S_{\Phi}, S_{\Lambda})
   \label{eq:adapted_wickens_model}
 \end{equation}
 
@@ -114,14 +114,14 @@ Now that we have a baseline metric adapted from the related work to use as a bas
 The resource workload metric $W_{Resource}$ attempts to measure the resource load an Actor is experiencing via inter-actor communications and memory access for each time step of the simulation.  The concept is based off of the cognitive workload category presented by Jared et al. \cite{moore2014modeling}.  For example, when Bob is talking to Alice she is processing input on multiple audio channels while also accessing any relevant memory.  Once Alice is alone again her resource workload will have decreased as she is only processing a single audio channel.
 
 \begin{equation}
-  W_{Resource}(S^{Current}) = S_{Actor Load} + ChannelConflicts(S_{\Sigma}) + ResourceLoad(S_{\Sigma}) + ResourceLoad(S_{\Lambda})
+  W_{Resource}(S^{Current}) = S_{Actor Load} + ChannelConflicts(S_{\Phi}) + ResourceLoad(S_{\Phi}) + ResourceLoad(S_{\Lambda})
   \label{eq:resourceworkload}
 \end{equation}
 
 \begin{equation}
-  ChannelConflicts(\Sigma) = \sum_{ChannelTypes} \left\{
+  ChannelConflicts(\Phi) = \sum_{ChannelTypes} \left\{
     \begin{array}{l l}
-      1 & \sum \Sigma^{ChannelType} \in \Sigma > 1 \\
+      1 & \sum \Phi^{ChannelType} \in \Phi > 1 \\
       0 & otherwise \\
     \end{array}
     \right.
@@ -133,9 +133,9 @@ The resource workload metric $W_{Resource}$ attempts to measure the resource loa
   \label{eq:resource_load}
 \end{equation}
 
-We see from equation \ref{eq:resourceworkload} that resource workload $W_{Resource}$ is composed of three sub-metrics: channel conflicts, resource load, and Actor Load.  Given the current state $S^{Current}$ we can extract the Actor Load $S_{Actor Load}$, the set of inputs $S_{\Sigma}$ from the available transitions, and the set of outputs $S_{\Lambda}$ from the active transition.  We can then pass these values to equations \ref{eq:channel_conflict} and \ref{eq:resource_load} to obtain the required sub-metrics.
+We see from equation \ref{eq:resourceworkload} that resource workload $W_{Resource}$ is composed of three sub-metrics: channel conflicts, resource load, and Actor Load.  Given the current state $S^{Current}$ we can extract the Actor Load $S_{Actor Load}$, the set of inputs $S_{\Phi}$ from the available transitions, and the set of outputs $S_{\Lambda}$ from the active transition.  We can then pass these values to equations \ref{eq:channel_conflict} and \ref{eq:resource_load} to obtain the required sub-metrics.
 
-Channel conflicts occur whenever more than one active channel shares a type, such as an Actor receiving input on multiple audio channels.  Given a set of input channels ($\Sigma$) equation \ref{eq:channel_conflict} calculates the total channel conflicts by counting the number of $ChannelTypes$ that occur more than once in the set of all inputs.  Since we currently only allow visual and audio input for human Actors this value ranges from 0 to 2.  
+Channel conflicts occur whenever more than one active channel shares a type, such as an Actor receiving input on multiple audio channels.  Given a set of input channels ($\Phi$) equation \ref{eq:channel_conflict} calculates the total channel conflicts by counting the number of $ChannelTypes$ that occur more than once in the set of all inputs.  Since we currently only allow visual and audio input for human Actors this value ranges from 0 to 2.  
 
 Resource load attempts to quantify the load being placed on the Actor's resources.  We break the resource load into two parts, input and output, the final result being the sum of both parts.  Each part is calculated using equation \ref{eq:resource_load}.  The equation states that given a set of inputs/outputs $IO$ the respective resource load is the sum of the number of active channels, number of layers used, number of memory objects used, and the number of active channel types.  Actor Load is the same metric that is used in the adapted Wickens' metric and is included here because it is a direct reflection of the modelers belief of what the resource load is during this state.
 
@@ -145,13 +145,13 @@ Resource load attempts to quantify the load being placed on the Actor's resource
 The decision workload metric attempts to measure the complexity of the decision making process by measuring the size of the decision space for each time step of the simulation.  The concept is based off of the algorithmic workload category presented by Jared et al. \cite{moore2014modeling}.  For example, when Bob begins talking to Alice the added input enables an additional transition.  This means that Alice must now choose to keep trying to listen to the phone while Bob talks or signal Bob to stop talking, thus increasing her decision workload.  When Bob stops talking Alice's decision workload decrease as there is less input to process and fewer enabled transitions to choose from.
 
 \begin{equation}
-  W_{Decision}(S^{Current}) = S_{EnabledTransitions} + S_{\Sigma^{Read}} + S_{\Lambda^{Set}} + DurationComplexity(S^{Current})
+  W_{Decision}(S^{Current}) = S_{EnabledTransitions} + S_{\Phi^{Read}} + S_{\Lambda^{Set}} + DurationComplexity(S^{Current})
   \label{eq:decisionworkload}
 \end{equation}
 
 To calculate the decision workload metric we use equation \ref{eq:decisionworkload} which is composed of four sub-metrics: decision complexity, input complexity, output complexity, and duration complexity.  The decision complexity represents how many options were available to choose from and is calculated as the number of enabled transitions $S_{EnabledTransitions}$ for the current state.  In the case of Alice and Bob when Alice signals to Bob that she is on the phone Bob can choose to keep talking, stop talking and wait for Alice to finish, or walk away; thus Bob has a decision complexity of 3 while Alice is signaling.  
 
-The input complexity represents the number of inputs that the Actor must process to make a decision.  It is calculated by summing the total number of inputs read by transitions $S_{\Sigma_{Read}}$, this includes active channels and memory variables.  Using the previous example, when Bobs decision complexity was three his input complexity could have been two, one from Alice's signal and another from a memory value representing how cute Alice is to Bob.  The output complexity is the same as the input complexity only the value is calculated from the total number of outputs $S_{\Lambda^{Set}}$ that can be set.
+The input complexity represents the number of inputs that the Actor must process to make a decision.  It is calculated by summing the total number of inputs read by transitions $S_{\Phi_{Read}}$, this includes active channels and memory variables.  Using the previous example, when Bobs decision complexity was three his input complexity could have been two, one from Alice's signal and another from a memory value representing how cute Alice is to Bob.  The output complexity is the same as the input complexity only the value is calculated from the total number of outputs $S_{\Lambda^{Set}}$ that can be set.
 
 \begin{equation}
   DurationComplexity(S) = \log \frac{max(S_{Duration})}{60}

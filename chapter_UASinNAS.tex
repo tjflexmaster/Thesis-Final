@@ -33,7 +33,7 @@ To analyze the workload metrics presented in the previous chapter we chose to pe
 
 Since we would eventually like to correlate these workload metrics with real human workload our goal was to model a UAS that presented high and low workload periods similar to those observed during the WiSAR flight tests.  Such as creating fight plans, monitoring normal flight, handling active alarms, introducing increased autonomy, and handling operator interruptions.  This will allow us to check that the results are generally consistent with a known workload profile.  The model we chose was the integration of a UAS into the National Airspace System.
 
-To help illustrate this model we have created a DiRG that shows the states and data flow for each Actor.  Figure~\ref{fig:uasnasdirg}.  A matching DiTG for the model showing the Actor communication channels can be seen in figure~\ref{fig:uasnasditg}.
+To help illustrate this model we have created a state transition system that shows the states and data flow for each Actor.  Figure~\ref{fig:uasnasdirg}.  A matching DiTG for the model showing the Actor communication channels can be seen in figure~\ref{fig:uasnasditg}.
 
 An Unmanned Aerial System (UAS) plans to operate within the National Airspace System.  The UAS is composed of a server (UAS Server), an Unmanned Aerial Vehicle Operator (UAV Operator), and an Unmanned Aerial Vehicle (UAV).  The UAV Operator controls the UAS Server through a graphical user interface (UAS GUI) that in turn controls the UAV, as illustrated in the DiTG shown in figure~\ref{fig:uasnasditg}.  The UAV will take off and land at an airport serving both manned and unmanned aerial vehicles.  The UAV Operator is located at this airport and visually monitors the takeoff and landing of the UAV.  UAV state is continuously shown on the UAS GUI.
 
@@ -45,12 +45,12 @@ An Unmanned Aerial System (UAS) plans to operate within the National Airspace Sy
 \end{center}
 \end{figure}
 
-There is an FAA Server that provides real-time notice to airmen (NOTAM) information.  The UAS Server connects to this server, receives the NOTAMs and displays them on the UAS GUI.  Figure~\ref{fig:uasnasditg}.  The FAA system also allows the UAS Server to file flight plans.  Filed flight plans are automatically checked for simple conflicts such as crossing NOTAMS or duplicate takeoff/landing times.  If there is a conflict the FAA Server flags the flight plan for an Air Traffic Controller (ATC) and displays these requests on an FAA GUI that is monitored by the ATC.  The ATC then approves or denies flight plans, using the FAA GUI, at their leisure.  This approval/denial then becomes available to the UAS Server, which displays it on the UAS GUI as illustrated in the DiRG shown in Figure~\ref{fig:uasnasdirg}.
+There is an FAA Server that provides real-time notice to airmen (NOTAM) information.  The UAS Server connects to this server, receives the NOTAMs and displays them on the UAS GUI.  Figure~\ref{fig:uasnasditg}.  The FAA system also allows the UAS Server to file flight plans.  Filed flight plans are automatically checked for simple conflicts such as crossing NOTAMS or duplicate takeoff/landing times.  If there is a conflict the FAA Server flags the flight plan for an Air Traffic Controller (ATC) and displays these requests on an FAA GUI that is monitored by the ATC.  The ATC then approves or denies flight plans, using the FAA GUI, at their leisure.  This approval/denial then becomes available to the UAS Server, which displays it on the UAS GUI as illustrated in the state transition system shown in Figure~\ref{fig:uasnasdirg}.
 
 \begin{figure}[h]
 \begin{center}
 \includegraphics[width=6in]{uasnasdirg.png}
-\caption{DiRG: UAS integration into the NAS Model.  Columns represent Actors, column sections represent states, and arrows represent inter Actor data flow.}
+\caption{State Transition System of UAS integration into the NAS Model.  Columns represent Actors, column sections represent states, and arrows represent inter Actor data flow.}
 \label{fig:uasnasdirg}
 \end{center}
 \end{figure}
