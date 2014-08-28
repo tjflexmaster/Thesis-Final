@@ -182,12 +182,10 @@
 
 @MASTERSTHESIS{cooper2007supporting,
   author = {Cooper, J.L.},
-  title = {Supporting flight control for {UAV-assisted} wilderness search and
-	rescue through human centered interface design},
+  title = {Supporting Flight Control for {UAV-assisted} Wilderness Search and
+	Rescue Through Human Centered Interface Design},
   school = {Brigham Young University},
-  year = {2007},
-  institution = {DTIC Document},
-  owner = {TJ-ASUS}
+  year = {2007}
 }
 
 @INPROCEEDINGS{cooper2008towards,
@@ -239,8 +237,8 @@
 
 @PHDTHESIS{engh2008see,
   author = {Engh, C.H.},
-  title = {A see-ability metric to improve mini unmanned aerial vehicle operator
-	awareness using video georegistered to terrain models},
+  title = {A See-Ability Metric to Improve Mini Unmanned Aerial Vehicle Operator
+	Awareness Using Video Georegistered to Terrain Models},
   school = {Brigham Young University},
   year = {2008}
 }
@@ -453,7 +451,7 @@
 @MISC{MurphyStoverPrattGriffin2006,
   author = {R. Murphy and S. Stover and K. Pratt and C. Griffin},
   title = {Cooperative Damage Inspection with Unmanned Surface Vehicle and Micro
-	Unmanned Aerial Vehicle at Hurrican {Wilma}},
+	Unmanned Aerial Vehicle at Hurricane {Wilma}},
   howpublished = {IROS 2006 Video Session},
   month = {October},
   year = {2006}
@@ -473,7 +471,7 @@
 }
 
 @BOOK{newell1994unified,
-  title = {Unified theories of cognition},
+  title = {Unified Theories of Cognition},
   publisher = {Harvard University Press},
   year = {1994},
   author = {Newell, Allen},
@@ -529,7 +527,7 @@
 @INPROCEEDINGS{rungta2013aviation,
   author = {Rungta, Neha and Brat, Guillaume and Clancey, William J and Linde,
 	Charlotte and Raimondi, Franco and Seah, Chin and Shafto, Michael},
-  title = {Aviation safety: modeling and analyzing complex interactions between
+  title = {Aviation safety: Modeling and analyzing complex interactions between
 	humans and automated systems},
   booktitle = {Application and Theory of Automation in Command and Control Systems,
 	3rd International Conference on },
@@ -541,7 +539,7 @@
 
 @ARTICLE{salvucci2008threaded,
   author = {Salvucci, Dario D and Taatgen, Niels A},
-  title = {Threaded cognition: an integrated theory of concurrent multitasking.},
+  title = {Threaded cognition: An integrated theory of concurrent multitasking.},
   journal = {Psychological review},
   year = {2008},
   volume = {115},
@@ -602,7 +600,7 @@
 @ARTICLE{wickens2002multiple,
   author = {Wickens, Christopher D},
   title = {Multiple resources and performance prediction},
-  journal = {Theoretical issues in ergonomics science},
+  journal = {Theoretical Issues in Ergonomics Science},
   year = {2002},
   volume = {3},
   pages = {159--177},
@@ -614,7 +612,7 @@
   title = {Integration of Civil Unmanned Aerial Systems (UAS) into the National
 	Airspace System (NAS) Roadmap},
   organization = {U.S. Department of Transporation Federal Aviation Administration},
-  edition = {First Edition},
+  edition = {First},
   year = {2013}
 }
 

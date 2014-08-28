@@ -94,21 +94,21 @@ Fired Transition:	ATC: StartState: NORMAL EndState: CREATE_NOTAM Description: AT
 Fired Transition:	FAA: StartState: NORMAL EndState: NORMAL Description: Potential collision on FAA Radar, show the user
 Fired Transition:	UAS: StartState: NORMAL EndState: NORMAL Description: UAS received radar collision event
 -----------------------------------------------
-Load Transition(1):	ATC: StartState: CREATE_NOTAM EndState: CREATE_EMERGENCY_NOTAM Description: ATC sees the alert about a UAV collision and tries to avoid it
-Load Transition(1):	UAVOP: StartState: MONITOR_UAVGUI EndState: AVOID_COLLISION Description: Operator sees a potential conflict and trys to avoid it
+Load Transition(1):	ATC: StartState: CREATE_NOTAM EndState: CREATE_EMERGENCY_NOTAM Description: ATC sees the alert about a UAV collision and trie...
+Load Transition(1):	UAVOP: StartState: MONITOR_UAVGUI EndState: AVOID_COLLISION Description: Operator sees a potential conflict and trys to avoid...
 Time: 1443
-Fired Transition:	ATC: StartState: CREATE_NOTAM EndState: CREATE_EMERGENCY_NOTAM Description: ATC sees the alert about a UAV collision and tries to avoid it
-Fired Transition:	UAVOP: StartState: MONITOR_UAVGUI EndState: AVOID_COLLISION Description: Operator sees a potential conflict and trys to avoid it
+Fired Transition:	ATC: StartState: CREATE_NOTAM EndState: CREATE_EMERGENCY_NOTAM Description: ATC sees the alert about a UAV collision and tries ...
+Fired Transition:	UAVOP: StartState: MONITOR_UAVGUI EndState: AVOID_COLLISION Description: Operator sees a potential conflict and trys to avoid i...
 -----------------------------------------------
-Load Transition(60):	ATC: StartState: CREATE_EMERGENCY_NOTAM EndState: END_CREATE_EMERGENCY_NOTAM Description: ATC is creating an Emergency Notam around the collision
+Load Transition(60):	ATC: StartState: CREATE_EMERGENCY_NOTAM EndState: END_CREATE_EMERGENCY_NOTAM Description: ATC is creating an Emergency Nota...
 Load Transition(300):	UAVOP: StartState: AVOID_COLLISION EndState: AVOID_COLLISION Description: Operator is in the act of deconflicing the UAV
 Time: 1503
-Fired Transition:	ATC: StartState: CREATE_EMERGENCY_NOTAM EndState: END_CREATE_EMERGENCY_NOTAM Description: ATC is creating an Emergency Notam around the collision
+Fired Transition:	ATC: StartState: CREATE_EMERGENCY_NOTAM EndState: END_CREATE_EMERGENCY_NOTAM Description: ATC is creating an Emergency Notam ar...
 -----------------------------------------------
-Load Transition(1):	ATC: StartState: END_CREATE_EMERGENCY_NOTAM EndState: AVOID_UAV_COLLISION Description: ATC is creating an Emergency Notam around the collision
+Load Transition(1):	ATC: StartState: END_CREATE_EMERGENCY_NOTAM EndState: AVOID_UAV_COLLISION Description: ATC is creating an Emergency Notam aro...
 Load Transition(1):	FAA: StartState: NORMAL EndState: NORMAL Description: ATC sent an Emergency NOTAM to the FAA system, send it to the UAS
 Time: 1504
-Fired Transition:	ATC: StartState: END_CREATE_EMERGENCY_NOTAM EndState: AVOID_UAV_COLLISION Description: ATC is creating an Emergency Notam around the collision
+Fired Transition:	ATC: StartState: END_CREATE_EMERGENCY_NOTAM EndState: AVOID_UAV_COLLISION Description: ATC is creating an Emergency Notam aroun...
 Fired Transition:	FAA: StartState: NORMAL EndState: NORMAL Description: ATC sent an Emergency NOTAM to the FAA system, send it to the UAS
 -----------------------------------------------
 Load Transition(500):	ATC: StartState: AVOID_UAV_COLLISION EndState: AVOID_UAV_COLLISION Description: ATC is waiting for collision to stop.
@@ -132,15 +132,15 @@ Load Transition(1):	UAS: StartState: NORMAL EndState: NORMAL Description: Radar 
 Time: 1744
 Fired Transition:	UAS: StartState: NORMAL EndState: NORMAL Description: Radar collision has been avoided
 -----------------------------------------------
-Load Transition(1):	UAVOP: StartState: AVOID_COLLISION EndState: MONITOR_UAVGUI Description: Collision has been avoided, return to watching the UAVGUI
+Load Transition(1):	UAVOP: StartState: AVOID_COLLISION EndState: MONITOR_UAVGUI Description: Collision has been avoided, return to watching the U...
 Time: 1745
-Fired Transition:	UAVOP: StartState: AVOID_COLLISION EndState: MONITOR_UAVGUI Description: Collision has been avoided, return to watching the UAVGUI
+Fired Transition:	UAVOP: StartState: AVOID_COLLISION EndState: MONITOR_UAVGUI Description: Collision has been avoided, return to watching the UAV...
 -----------------------------------------------
-Load Transition(1):	UAVOP: StartState: MONITOR_UAVGUI EndState: AVOID_EMERGENCY_NOTAM Description: Operator notices an emergency notam on the UAV and attempts to assist
+Load Transition(1):	UAVOP: StartState: MONITOR_UAVGUI EndState: AVOID_EMERGENCY_NOTAM Description: Operator notices an emergency notam on the UAV...
 Time: 1746
-Fired Transition:	UAVOP: StartState: MONITOR_UAVGUI EndState: AVOID_EMERGENCY_NOTAM Description: Operator notices an emergency notam on the UAV and attempts to assist
+Fired Transition:	UAVOP: StartState: MONITOR_UAVGUI EndState: AVOID_EMERGENCY_NOTAM Description: Operator notices an emergency notam on the UAV a...
 -----------------------------------------------
-Load Transition(300):	UAVOP: StartState: AVOID_EMERGENCY_NOTAM EndState: AVOID_EMERGENCY_NOTAM Description: Operator is waiting for the UAV to auto remove itself from the Emergency Notam
+Load Transition(300):	UAVOP: StartState: AVOID_EMERGENCY_NOTAM EndState: AVOID_EMERGENCY_NOTAM Description: Operator is waiting for the UAV to au...
 Time: 1806
 Fired Transition:	UAV: StartState: AVOID_NOTAM EndState: LOITER Description: Avoid the Emergency NOTAM
 -----------------------------------------------
@@ -152,7 +152,7 @@ Fired Transition:	End the FAA potential collision with a UAV
 Fired Transition:	UAS: StartState: NORMAL EndState: NORMAL Description: UAV is now Loitering, show this to the UAVOp
 -----------------------------------------------
 Load Transition(1):	FAA: StartState: NORMAL EndState: NORMAL Description: Radar collision has ended.
-Load Transition(5):	UAVOP: StartState: AVOID_EMERGENCY_NOTAM EndState: AVOID_EMERGENCY_NOTAM Description: Operator sees that the UAV is loitering, have it resume flight now.
+Load Transition(5):	UAVOP: StartState: AVOID_EMERGENCY_NOTAM EndState: AVOID_EMERGENCY_NOTAM Description: Operator sees that the UAV is loitering...
 Time: 1808
 Fired Transition:	FAA: StartState: NORMAL EndState: NORMAL Description: Radar collision has ended.
 -----------------------------------------------
@@ -166,13 +166,13 @@ Fired Transition:	ATC: StartState: NORMAL EndState: CREATE_NOTAM Description: AT
 -----------------------------------------------
 Load Transition(60):	ATC: StartState: CREATE_NOTAM EndState: END_CREATE_NOTAM Description: ATC is creating a new NOTAM
 Time: 1812
-Fired Transition:	UAVOP: StartState: AVOID_EMERGENCY_NOTAM EndState: AVOID_EMERGENCY_NOTAM Description: Operator sees that the UAV is loitering, have it resume flight now.
+Fired Transition:	UAVOP: StartState: AVOID_EMERGENCY_NOTAM EndState: AVOID_EMERGENCY_NOTAM Description: Operator sees that the UAV is loitering, ...
 -----------------------------------------------
 Load Transition(1):	UAS: StartState: NORMAL EndState: NORMAL Description: UAVOP sent resume flight
-Load Transition(1):	UAVOP: StartState: AVOID_EMERGENCY_NOTAM EndState: MONITOR_UAVGUI Description: NOTAM has been avoided, return to watching the UAVGUI
+Load Transition(1):	UAVOP: StartState: AVOID_EMERGENCY_NOTAM EndState: MONITOR_UAVGUI Description: NOTAM has been avoided, return to watching the...
 Time: 1813
 Fired Transition:	UAS: StartState: NORMAL EndState: NORMAL Description: UAVOP sent resume flight
-Fired Transition:	UAVOP: StartState: AVOID_EMERGENCY_NOTAM EndState: MONITOR_UAVGUI Description: NOTAM has been avoided, return to watching the UAVGUI
+Fired Transition:	UAVOP: StartState: AVOID_EMERGENCY_NOTAM EndState: MONITOR_UAVGUI Description: NOTAM has been avoided, return to watching the U...
 -----------------------------------------------
 Load Transition(1):	UAV: StartState: LOITER EndState: FLYING Description: Resume a normal flight
 Time: 1814
@@ -199,9 +199,9 @@ Time: 1872
 Fired Transition:	FAA: StartState: NORMAL EndState: NORMAL Description: Clear New NOTAM memory
 Fired Transition:	UAS: StartState: NORMAL EndState: NORMAL Description: Receive new NOTAM from FAA which appears on the Flight Plan
 -----------------------------------------------
-Load Transition(1):	UAVOP: StartState: MONITOR_UAVGUI EndState: AVOID_NOTAM Description: Operator notices new NOTAM(s) on the flight plan, begin changing the flight plan.
+Load Transition(1):	UAVOP: StartState: MONITOR_UAVGUI EndState: AVOID_NOTAM Description: Operator notices new NOTAM(s) on the flight plan, begin ...
 Time: 1873
-Fired Transition:	UAVOP: StartState: MONITOR_UAVGUI EndState: AVOID_NOTAM Description: Operator notices new NOTAM(s) on the flight plan, begin changing the flight plan.
+Fired Transition:	UAVOP: StartState: MONITOR_UAVGUI EndState: AVOID_NOTAM Description: Operator notices new NOTAM(s) on the flight plan, begin ch...
 -----------------------------------------------
 Load Transition(600):	UAVOP: StartState: AVOID_NOTAM EndState: AVOID_NOTAM Description: Operator is changing the flight plan for a normal NOTAM
 Time: 2473
@@ -226,9 +226,9 @@ Load Transition(900):	UAVOP: StartState: MONITOR_UAVGUI EndState: MONITOR_UAVGUI
 Time: 11815
 Fired Transition:	UAS: StartState: NORMAL EndState: NORMAL Description: UAV has started to land, show this to the UAVOp
 -----------------------------------------------
-Load Transition(1):	UAVOP: StartState: MONITOR_UAVGUI EndState: MONITOR_LANDING Description: Operator sees that the UAV is beginning the landing approach
+Load Transition(1):	UAVOP: StartState: MONITOR_UAVGUI EndState: MONITOR_LANDING Description: Operator sees that the UAV is beginning the landin...
 Time: 11816
-Fired Transition:	UAVOP: StartState: MONITOR_UAVGUI EndState: MONITOR_LANDING Description: Operator sees that the UAV is beginning the landing approach
+Fired Transition:	UAVOP: StartState: MONITOR_UAVGUI EndState: MONITOR_LANDING Description: Operator sees that the UAV is beginning the landing a...
 -----------------------------------------------
 Time: 12414
 Fired Transition:	UAV: StartState: LANDING EndState: GROUNDED Description: Land the UAV
@@ -237,9 +237,9 @@ Load Transition(1):	UAS: StartState: NORMAL EndState: NORMAL Description: UAV is
 Time: 12415
 Fired Transition:	UAS: StartState: NORMAL EndState: NORMAL Description: UAV is GROUNDED, show this to the UAVOp
 -----------------------------------------------
-Load Transition(30):	UAVOP: StartState: MONITOR_LANDING EndState: IDLE Description: Operator sees that the UAV has landed and sets the mission to complete.
+Load Transition(30):	UAVOP: StartState: MONITOR_LANDING EndState: IDLE Description: Operator sees that the UAV has landed and sets the mission...
 Time: 12445
-Fired Transition:	UAVOP: StartState: MONITOR_LANDING EndState: IDLE Description: Operator sees that the UAV has landed and sets the mission to complete.
+Fired Transition:	UAVOP: StartState: MONITOR_LANDING EndState: IDLE Description: Operator sees that the UAV has landed and sets the mission to ...
 -----------------------------------------------
 Time: 12445
 -----------------------------------------------
